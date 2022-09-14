@@ -1,4 +1,4 @@
-FROM moxm/java:1.8-full
+FROM openjdk
 
 RUN mkdir -p /coin-register
 

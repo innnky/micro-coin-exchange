@@ -6,7 +6,7 @@ server:
 db:
   num: 1
   user: ${MYSQL_USER:root}
-  password: ${MYSQL_PWD:root}
+  password: ${MYSQL_PWD:000508}
   url:
     0: jdbc:mysql://${MYSQL_HOST:coin-mysql}:${MYSQL_PORT:3306}/${MYSQL_DB:coin_config}?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true&allowPublicKeyRetrieval=true
 

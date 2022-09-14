@@ -46,7 +46,8 @@ import java.util.Map;
  * <p>
  * feign 自动配置功能 from mica
  */
-public class CoinFeignClientsRegistrar implements ImportBeanDefinitionRegistrar, BeanClassLoaderAware, EnvironmentAware {
+public class CoinFeignClientsRegistrar
+		implements ImportBeanDefinitionRegistrar, BeanClassLoaderAware, EnvironmentAware {
 
 	@Getter
 	private ClassLoader beanClassLoader;
