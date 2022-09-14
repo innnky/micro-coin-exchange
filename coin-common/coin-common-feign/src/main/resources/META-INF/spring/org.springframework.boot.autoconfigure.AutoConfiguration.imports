@@ -1,0 +1,3 @@
+com.innky.coin.common.feign.CoinFeignAutoConfiguration
+com.innky.coin.common.feign.sentinel.SentinelAutoConfiguration
+com.innky.coin.common.feign.sentinel.handle.GlobalBizExceptionHandler

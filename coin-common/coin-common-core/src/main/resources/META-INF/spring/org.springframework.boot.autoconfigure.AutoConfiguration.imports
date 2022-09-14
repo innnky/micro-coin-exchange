@@ -1,0 +1,6 @@
+com.innky.coin.common.core.config.TaskExecutorConfiguration
+com.innky.coin.common.core.config.JacksonConfiguration
+com.innky.coin.common.core.config.RedisTemplateConfiguration
+com.innky.coin.common.core.config.RestTemplateConfiguration
+com.innky.coin.common.core.util.SpringContextHolder
+com.innky.coin.common.core.config.WebMvcConfiguration

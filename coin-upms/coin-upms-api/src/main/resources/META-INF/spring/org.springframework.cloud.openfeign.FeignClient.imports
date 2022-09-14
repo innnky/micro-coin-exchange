@@ -1,0 +1,7 @@
+com.innky.coin.admin.api.feign.RemoteClientDetailsService
+com.innky.coin.admin.api.feign.RemoteDictService
+com.innky.coin.admin.api.feign.RemoteDeptService
+com.innky.coin.admin.api.feign.RemoteLogService
+com.innky.coin.admin.api.feign.RemoteTokenService
+com.innky.coin.admin.api.feign.RemoteUserService
+com.innky.coin.admin.api.feign.RemoteParamService

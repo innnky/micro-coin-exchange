@@ -1,0 +1,7 @@
+com.innky.coin.common.security.service.CoinUserDetailsServiceImpl
+com.innky.coin.common.security.service.CoinAppUserDetailsServiceImpl
+com.innky.coin.common.security.service.CoinRedisOAuth2AuthorizationService
+com.innky.coin.common.security.service.CoinRedisOAuth2AuthorizationConsentService
+com.innky.coin.common.security.component.CoinSecurityInnerAspect
+com.innky.coin.common.security.component.CoinSecurityMessageSourceConfiguration
+com.innky.coin.common.security.service.CoinRemoteRegisteredClientRepository

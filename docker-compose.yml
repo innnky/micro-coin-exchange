@@ -1,0 +1,94 @@
+version: '3'
+services:
+  coin-mysql:
+    build:
+      context: ./db
+    environment:
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_ROOT_PASSWORD: root
+    restart: always
+    container_name: coin-mysql
+    image: coin-mysql
+    ports:
+      - 3306:3306
+
+  coin-redis:
+    image: redis:7.0.0
+    ports:
+      - 6379:6379
+    restart: always
+    container_name: coin-redis
+    hostname: coin-redis
+
+  coin-register:
+    build:
+      context: ./coin-register
+    restart: always
+    ports:
+      - 8848:8848
+    container_name: coin-register
+    hostname: coin-register
+    image: coin-register
+
+  coin-gateway:
+    build:
+      context: ./coin-gateway
+    restart: always
+    ports:
+      - 9999:9999
+    container_name: coin-gateway
+    hostname: coin-gateway
+    image: coin-gateway
+
+  coin-auth:
+    build:
+      context: ./coin-auth
+    restart: always
+    container_name: coin-auth
+    hostname: coin-auth
+    image: coin-auth
+
+  coin-upms:
+    build:
+      context: ./coin-upms/coin-upms-biz
+    restart: always
+    container_name: coin-upms
+    hostname: coin-upms
+    image: coin-upms
+
+  coin-monitor:
+    build:
+      context: ./coin-visual/coin-monitor
+    restart: always
+    ports:
+      - 5001:5001
+    container_name: coin-monitor
+    hostname: coin-monitor
+    image: coin-monitor
+
+  coin-sentinel:
+    build:
+      context: ./coin-visual/coin-sentinel-dashboard
+    restart: always
+    image: coin-sentinel
+    container_name: coin-sentinel
+    ports:
+      - 5003:5003
+
+  coin-codegen:
+    build:
+      context: ./coin-visual/coin-codegen
+    restart: always
+    container_name: coin-codegen
+    hostname: coin-codegen
+    image: coin-codegen
+
+  coin-job:
+    build:
+      context: ./coin-visual/coin-xxl-job-admin
+    restart: always
+    container_name: coin-job
+    hostname: coin-job
+    image: coin-job
+    ports:
+      - 5004:5004
