@@ -13,7 +13,8 @@
       </div>
       <div class="avue-main">
         <!-- 顶部标签卡 -->
-        <tags/>
+<!--        <tags/>-->
+        <div style="margin-bottom: 10px"/>
         <!-- 主体视图层 -->
         <el-scrollbar>
           <keep-alive>

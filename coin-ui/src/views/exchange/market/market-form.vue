@@ -1,0 +1,127 @@
+<template>
+  <el-dialog
+    :title="!dataForm.id ? '新增' : '修改'"
+    append-to-body
+    :close-on-click-modal="false"
+    @close="closeDialog()"
+    :visible.sync="visible">
+    <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="80px">
+    <el-form-item label="id" prop="id" v-if="dataForm.id">
+        <el-input v-model="dataForm.id" placeholder="id" disabled></el-input>
+    </el-form-item>
+    <el-form-item label="符号" prop="symbol">
+        <el-input v-model="dataForm.symbol" placeholder="符号"></el-input>
+    </el-form-item>
+    <el-form-item label="卖方币种id" prop="sellCoinId">
+        <el-input v-model="dataForm.sellCoinId" placeholder="卖方币种id"></el-input>
+    </el-form-item>
+    <el-form-item label="买方币种id" prop="buyCoinId">
+        <el-input v-model="dataForm.buyCoinId" placeholder="买方币种id"></el-input>
+    </el-form-item>
+    <el-form-item label="开盘价" prop="openPrice">
+        <el-input v-model="dataForm.openPrice" placeholder="开盘价"></el-input>
+    </el-form-item>
+    <el-form-item label="createTime" prop="createTime" v-if="dataForm.id">
+        <el-input v-model="dataForm.createTime" placeholder="createTime" disabled></el-input>
+    </el-form-item>
+    <el-form-item label="updateTime" prop="updateTime" v-if="dataForm.id">
+        <el-input v-model="dataForm.updateTime" placeholder="updateTime" disabled></el-input>
+    </el-form-item>
+    <el-form-item label="createBy" prop="createBy" v-if="dataForm.id">
+        <el-input v-model="dataForm.createBy" placeholder="createBy" disabled></el-input>
+    </el-form-item>
+    <el-form-item label="updateBy" prop="updateBy" v-if="dataForm.id">
+        <el-input v-model="dataForm.updateBy" placeholder="updateBy" disabled></el-input>
+    </el-form-item>
+    </el-form>
+    <span slot="footer" class="dialog-footer">
+      <el-button @click="visible = false">取消</el-button>
+      <el-button type="primary" @click="dataFormSubmit()" v-if="canSubmit">确定</el-button>
+    </span>
+  </el-dialog>
+</template>
+
+<script>
+    import {getObj, addObj, putObj} from '@/api/market'
+
+    export default {
+    data () {
+      return {
+        visible: false,
+        canSubmit: false,
+        dataForm: {
+          id: '',
+          symbol: '',
+          sellCoinId: '',
+          buyCoinId: '',
+          openPrice: '',
+          createTime: '',
+          updateTime: '',
+          createBy: '',
+          updateBy: '',
+        },
+        dataRule: {
+          symbol: [
+            { required: true, message: '符号不能为空', trigger: 'blur' }
+          ],
+
+          sellCoinId: [
+            { required: true, message: '卖方币种id不能为空', trigger: 'blur' }
+          ],
+
+          buyCoinId: [
+            { required: true, message: '买方币种id不能为空', trigger: 'blur' }
+          ],
+
+          openPrice: [
+            { required: true, message: '开盘价不能为空', trigger: 'blur' }
+          ],
+
+        }
+      }
+    },
+    methods: {
+      init (id) {
+        this.visible = true;
+        this.canSubmit = true;
+        this.$nextTick(() => {
+            this.$refs['dataForm'].resetFields()
+            if (id) {
+            getObj(id).then(response => {
+                this.dataForm = response.data.data
+            })
+          }
+        })
+      },
+      // 表单提交
+      dataFormSubmit () {
+        this.$refs['dataForm'].validate((valid) => {
+          if (valid) {
+            this.canSubmit = false;
+            if (this.dataForm.id) {
+                putObj(this.dataForm).then(data => {
+                    this.$notify.success('修改成功')
+                    this.visible = false
+                    this.$emit('refreshDataList')
+                }).catch(() => {
+                    this.canSubmit = true;
+                });
+            } else {
+                addObj(this.dataForm).then(data => {
+                    this.$notify.success('添加成功')
+                    this.visible = false
+                    this.$emit('refreshDataList')
+                }).catch(() => {
+                    this.canSubmit = true;
+                });
+            }
+          }
+        })
+      },
+      //重置表单
+      closeDialog() {
+          this.$refs["dataForm"].resetFields()
+      }
+    }
+  }
+</script>
