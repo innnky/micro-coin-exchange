@@ -38,24 +38,23 @@ import java.math.BigDecimal;
 @Schema(description = "用户资产流水")
 public class UserAssetsHistory extends BaseEntity {
 
-    /**
-     * id
-     */
-    @TableId(type = IdType.ASSIGN_ID)
-    @Schema(description ="id")
-    private Long id;
+	/**
+	 * id
+	 */
+	@TableId(type = IdType.ASSIGN_ID)
+	@Schema(description = "id")
+	private Long id;
 
-    /**
-     * 币种id
-     */
-    @Schema(description ="币种id")
-    private Long coinId;
+	/**
+	 * 币种id
+	 */
+	@Schema(description = "币种id")
+	private Long coinId;
 
-    /**
-     * 数量变化
-     */
-    @Schema(description ="数量变化")
-    private BigDecimal amountDelta;
-
+	/**
+	 * 数量变化
+	 */
+	@Schema(description = "数量变化")
+	private BigDecimal amountDelta;
 
 }

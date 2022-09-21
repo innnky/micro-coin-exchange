@@ -38,54 +38,53 @@ import java.math.BigDecimal;
 @Schema(description = "委托订单表")
 public class Order extends BaseEntity {
 
-    /**
-     * id
-     */
-    @TableId(type = IdType.ASSIGN_ID)
-    @Schema(description ="id")
-    private Long id;
+	/**
+	 * id
+	 */
+	@TableId(type = IdType.ASSIGN_ID)
+	@Schema(description = "id")
+	private Long id;
 
-    /**
-     * 用户id
-     */
-    @Schema(description ="用户id")
-    private Long userId;
+	/**
+	 * 用户id
+	 */
+	@Schema(description = "用户id")
+	private Long userId;
 
-    /**
-     * 交易对符号
-     */
-    @Schema(description ="交易对符号")
-    private String symbol;
+	/**
+	 * 交易对符号
+	 */
+	@Schema(description = "交易对符号")
+	private String symbol;
 
-    /**
-     * 交易方向
-     */
-    @Schema(description ="交易方向")
-    private Integer side;
+	/**
+	 * 交易方向
+	 */
+	@Schema(description = "交易方向")
+	private Integer side;
 
-    /**
-     * 交易类型
-     */
-    @Schema(description ="交易类型")
-    private Integer type;
+	/**
+	 * 交易类型
+	 */
+	@Schema(description = "交易类型")
+	private Integer type;
 
-    /**
-     * 交易价格
-     */
-    @Schema(description ="交易价格")
-    private BigDecimal price;
+	/**
+	 * 交易价格
+	 */
+	@Schema(description = "交易价格")
+	private BigDecimal price;
 
-    /**
-     * 交易数量
-     */
-    @Schema(description ="交易数量")
-    private BigDecimal quantity;
+	/**
+	 * 交易数量
+	 */
+	@Schema(description = "交易数量")
+	private BigDecimal quantity;
 
-    /**
-     * 委托单状态
-     */
-    @Schema(description ="委托单状态")
-    private Integer orderStatus;
-
+	/**
+	 * 委托单状态
+	 */
+	@Schema(description = "委托单状态")
+	private Integer orderStatus;
 
 }

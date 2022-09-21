@@ -36,24 +36,23 @@ import lombok.EqualsAndHashCode;
 @Schema(description = "用户自选列表")
 public class UserFavorites extends BaseEntity {
 
-    /**
-     * id
-     */
-    @TableId(type = IdType.ASSIGN_ID)
-    @Schema(description ="id")
-    private Long id;
+	/**
+	 * id
+	 */
+	@TableId(type = IdType.ASSIGN_ID)
+	@Schema(description = "id")
+	private Long id;
 
-    /**
-     * userId
-     */
-    @Schema(description ="userId")
-    private Long userId;
+	/**
+	 * userId
+	 */
+	@Schema(description = "userId")
+	private Long userId;
 
-    /**
-     * symbol
-     */
-    @Schema(description ="symbol")
-    private String symbol;
-
+	/**
+	 * symbol
+	 */
+	@Schema(description = "symbol")
+	private String symbol;
 
 }

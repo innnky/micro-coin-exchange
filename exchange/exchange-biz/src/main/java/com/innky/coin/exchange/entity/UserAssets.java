@@ -38,30 +38,29 @@ import java.math.BigDecimal;
 @Schema(description = "用户资产")
 public class UserAssets extends BaseEntity {
 
-    /**
-     * id
-     */
-    @TableId(type = IdType.ASSIGN_ID)
-    @Schema(description ="id")
-    private Long id;
+	/**
+	 * id
+	 */
+	@TableId(type = IdType.ASSIGN_ID)
+	@Schema(description = "id")
+	private Long id;
 
-    /**
-     * 用户id
-     */
-    @Schema(description ="用户id")
-    private Long userId;
+	/**
+	 * 用户id
+	 */
+	@Schema(description = "用户id")
+	private Long userId;
 
-    /**
-     * 币种id
-     */
-    @Schema(description ="币种id")
-    private Long coinId;
+	/**
+	 * 币种id
+	 */
+	@Schema(description = "币种id")
+	private Long coinId;
 
-    /**
-     * 数量
-     */
-    @Schema(description ="数量")
-    private BigDecimal amount;
-
+	/**
+	 * 数量
+	 */
+	@Schema(description = "数量")
+	private BigDecimal amount;
 
 }

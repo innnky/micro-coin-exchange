@@ -9,7 +9,7 @@ import "echarts";
 import VChart, {THEME_KEY} from "vue-echarts";
 
 export default {
-  name: "HelloWorld",
+  name: "KLineArea",
   components: {
     VChart
   },
@@ -39,11 +39,11 @@ export default {
     };
   },
   mounted() {
-    setInterval(()=>{
-      this.sdta.push([38, 15, 5, 42])
-      this.option.series[0].data = this.sdta
-      console.log( this.option.series[0].data)
-    },1000*2);
+    // setInterval(()=>{
+    //   this.sdta.push([38, 15, 5, 42])
+    //   this.option.series[0].data = this.sdta
+    //   console.log( this.option.series[0].data)
+    // },1000*2);
   }
 };
 </script>
@@ -51,5 +51,6 @@ export default {
 <style scoped>
 .chart {
   height: 400px;
+  width: 600px;
 }
 </style>

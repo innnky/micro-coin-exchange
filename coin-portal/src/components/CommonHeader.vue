@@ -1,98 +1,56 @@
 <template>
-  <header>
-    <div class="l-content">
-      <i class="el-icon-menu" @click="collapseMenu"></i>
-      <!--    <h4>首页</h4>-->
-      <el-breadcrumb separator="/">
-        <el-breadcrumb-item v-for="item in tags" :key="item.path" :to="{ path: item.path }">{{ item.label }}
-        </el-breadcrumb-item>
-      </el-breadcrumb>
-    </div>
-    <div class="r-content">
-      <el-dropdown trigger="hover" size="mini">
-      <span>
-        <img :src="userImg">
-      </span>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item @click.native="logout">退出</el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-    </div>
-  </header>
+  <div>
+    <el-menu
+        :default-active="activeIndex2"
+        class="el-menu-demo"
+        mode="horizontal"
+        @select="handleSelect"
+        background-color="#545c64"
+        text-color="#fff"
+        active-text-color="#ffd04b">
+      <el-menu-item index="1">首页</el-menu-item>
+      <el-menu-item index="2">交易</el-menu-item>
+      <el-menu-item index="3">用户中心</el-menu-item>
+<!--      <el-menu-item index="3" disabled>消息中心</el-menu-item>-->
+      <el-menu-item index="4" class="float-end">登录</el-menu-item>
+      <el-menu-item index="5" class="float-end">注册</el-menu-item>
+
+    </el-menu>
+  </div>
 </template>
 
 <script>
-import {mapState} from 'vuex'
-import {getRequest} from "@/api/data";
 
 export default {
   name: "CommonHeader",
   data() {
     return {
-      userImg: '',
+      activeIndex: '1',
+      activeIndex2: '1'
     }
   },
   methods: {
-    collapseMenu() {
-      // console.log('sss');
-      this.$store.commit('collapseMenu')
-    }
-    ,logout(){
-      this.$store.commit('clearToken')
-      this.$router.push('/login')
-    },
-    getAvatar(){
-      getRequest('/user/avatar').then(res=>{
-        this.userImg = res
-
-      })
+    handleSelect(key, keyPath) {
+      if(key === "1"){
+        this.$router.push("/index")
+      }
+      else if(key === "2"){
+        this.$router.push("/trade")
+      }
+      console.log(key, keyPath);
     }
   },
   mounted() {
-    this.getAvatar()
+
   },
   computed: {
-    ...mapState({
-      tags: state => state.tab.tabList
-    })
+
   }
 }
 </script>
 
 <style lang="less" scoped>
-i{
-  margin-right: 20px;
-}
-header {
-  display: flex;
-  height: 100%;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.l-content {
-  display: flex;
-  align-items: center;
-
-  .el-button {
-    display: block;
-    margin-right: 20px;
-
-  }
-
-  .el-breadcrumb ::v-deep .el-breadcrumb__inner {
-    color: #737373 !important;
-  }
-}
-
-.r-content {
-  display: flex;
-  align-items: center;
-
-  img {
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-  }
+.el-menu{
+  width: 100%;
 }
 </style>

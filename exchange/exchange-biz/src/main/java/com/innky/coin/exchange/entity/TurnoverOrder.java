@@ -38,42 +38,41 @@ import java.math.BigDecimal;
 @Schema(description = "成交订单")
 public class TurnoverOrder extends BaseEntity {
 
-    /**
-     * id
-     */
-    @TableId(type = IdType.ASSIGN_ID)
-    @Schema(description ="id")
-    private Long id;
+	/**
+	 * id
+	 */
+	@TableId(type = IdType.ASSIGN_ID)
+	@Schema(description = "id")
+	private Long id;
 
-    /**
-     * 交易对符号
-     */
-    @Schema(description ="交易对符号")
-    private String symbol;
+	/**
+	 * 交易对符号
+	 */
+	@Schema(description = "交易对符号")
+	private String symbol;
 
-    /**
-     * 成交价格
-     */
-    @Schema(description ="成交价格")
-    private BigDecimal price;
+	/**
+	 * 成交价格
+	 */
+	@Schema(description = "成交价格")
+	private BigDecimal price;
 
-    /**
-     * 成交数量
-     */
-    @Schema(description ="成交数量")
-    private BigDecimal quantity;
+	/**
+	 * 成交数量
+	 */
+	@Schema(description = "成交数量")
+	private BigDecimal quantity;
 
-    /**
-     * 买方订单id
-     */
-    @Schema(description ="买方订单id")
-    private Long buyOrderId;
+	/**
+	 * 买方订单id
+	 */
+	@Schema(description = "买方订单id")
+	private Long buyOrderId;
 
-    /**
-     * 卖方订单id
-     */
-    @Schema(description ="卖方订单id")
-    private Long sellOrderId;
-
+	/**
+	 * 卖方订单id
+	 */
+	@Schema(description = "卖方订单id")
+	private Long sellOrderId;
 
 }

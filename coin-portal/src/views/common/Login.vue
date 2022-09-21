@@ -10,7 +10,7 @@
     >
       <h4>登录</h4>
       <br>      <el-form-item
-        label="邮箱账号"
+        label="用户名"
         label-width="80px"
         prop="username"
         class="username"
@@ -35,16 +35,16 @@
 </template>
 
 <script>
-import { doLogin} from "@/api/data";
-
+import {doLogin, getRequest} from "@/api/data";
+import {encryption} from "@/util";
 export default {
   name: "login",
   data() {
     return {
       username: '',
       form: {
-        username: "admin@163.com",
-        password: "123456"
+        username: "abc",
+        password: "123"
       },
       rules: {
         username: [
@@ -60,21 +60,40 @@ export default {
   methods: {
     login() {
       // const token = 'asdasdasda';
-      doLogin({
-        username: this.form.username,
-        password: this.form.password
-      }).then(res => {
-        // alert(res)
-        if(res.token!== undefined){
-          this.$store.commit("setToken", res.token)
+      // doLogin({
+      //   username: this.form.username,
+      //   password: this.form.password
+      // }).then(res => {
+      //   // alert(res)
+      //   if(res.token!== undefined){
+      //     this.$store.commit("setToken", res.token)
+      //
+      //     this.$router.push("/StudentAccount")
+      //   }
+      //
+      // })
+      const user = encryption({
+        data: {
+          username: this.form.username,
+          password: this.form.password
 
-          this.$router.push("/StudentAccount")
-        }
+        },
+        key: 'thanks,pig4cloud',
+        param: ['password']
+      })
+      doLogin(user).then(res => {
+        console.log(res)
+          if(res.access_token !== undefined){
+            this.$store.commit("setToken", res.access_token)
+            console.log(res.access_token)
+            this.$router.push("/trade")
+          }
 
       })
     },
     reg() {
-      this.$router.push("/Registration")
+      // this.$router.push("/Registration")
+      getRequest("/user/user/info",{})
     }
   }
 }

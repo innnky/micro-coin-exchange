@@ -30,7 +30,7 @@ class HttpRequest{
             }else if(response.data.code === 500 && response.data.message !== ''){
                 Message.error(response.data.message);
             }
-            return response.data.data;
+            return response.data;
         }, function (error) {
             // 对响应错误做点什么
             Message.error("发生错误");

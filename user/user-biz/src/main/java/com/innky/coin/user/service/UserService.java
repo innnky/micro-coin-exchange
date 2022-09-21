@@ -18,6 +18,7 @@
 package com.innky.coin.user.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.innky.coin.user.dto.PortalUserInfo;
 import com.innky.coin.user.entity.User;
 
 /**
@@ -27,5 +28,12 @@ import com.innky.coin.user.entity.User;
  * @date 2022-09-16 15:31:40
  */
 public interface UserService extends IService<User> {
+
+	/**
+	 * 将用户转换为dto
+	 * @param user 用户
+	 * @return {@link PortalUserInfo}
+	 */
+	PortalUserInfo getPortalUserInfo(User user);
 
 }

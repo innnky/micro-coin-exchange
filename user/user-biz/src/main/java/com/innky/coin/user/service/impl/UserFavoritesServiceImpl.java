@@ -29,6 +29,7 @@ import org.springframework.stereotype.Service;
  * @date 2022-09-16 15:31:40
  */
 @Service
-public class UserFavoritesServiceImpl extends ServiceImpl<UserFavoritesMapper, UserFavorites> implements UserFavoritesService {
+public class UserFavoritesServiceImpl extends ServiceImpl<UserFavoritesMapper, UserFavorites>
+		implements UserFavoritesService {
 
 }

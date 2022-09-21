@@ -31,7 +31,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
-
 /**
  * 币种表
  *
@@ -40,76 +39,75 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/coin" )
+@RequestMapping("/coin")
 @Tag(name = "币种表管理")
 @SecurityRequirement(name = HttpHeaders.AUTHORIZATION)
 public class CoinController {
 
-    private final  CoinService coinService;
+	private final CoinService coinService;
 
-    /**
-     * 分页查询
-     * @param page 分页对象
-     * @param coin 币种表
-     * @return
-     */
-    @Operation(summary = "分页查询", description = "分页查询")
-    @GetMapping("/page" )
-    @PreAuthorize("@pms.hasPermission('exchange_coin_get')" )
-    public R getCoinPage(Page page, Coin coin) {
-        return R.ok(coinService.page(page, Wrappers.query(coin)));
-    }
+	/**
+	 * 分页查询
+	 * @param page 分页对象
+	 * @param coin 币种表
+	 * @return
+	 */
+	@Operation(summary = "分页查询", description = "分页查询")
+	@GetMapping("/page")
+	@PreAuthorize("@pms.hasPermission('exchange_coin_get')")
+	public R getCoinPage(Page page, Coin coin) {
+		return R.ok(coinService.page(page, Wrappers.query(coin)));
+	}
 
+	/**
+	 * 通过id查询币种表
+	 * @param id id
+	 * @return R
+	 */
+	@Operation(summary = "通过id查询", description = "通过id查询")
+	@GetMapping("/{id}")
+	@PreAuthorize("@pms.hasPermission('exchange_coin_get')")
+	public R getById(@PathVariable("id") Long id) {
+		return R.ok(coinService.getById(id));
+	}
 
-    /**
-     * 通过id查询币种表
-     * @param id id
-     * @return R
-     */
-    @Operation(summary = "通过id查询", description = "通过id查询")
-    @GetMapping("/{id}" )
-    @PreAuthorize("@pms.hasPermission('exchange_coin_get')" )
-    public R getById(@PathVariable("id" ) Long id) {
-        return R.ok(coinService.getById(id));
-    }
+	/**
+	 * 新增币种表
+	 * @param coin 币种表
+	 * @return R
+	 */
+	@Operation(summary = "新增币种表", description = "新增币种表")
+	@SysLog("新增币种表")
+	@PostMapping
+	@PreAuthorize("@pms.hasPermission('exchange_coin_add')")
+	public R save(@RequestBody Coin coin) {
+		return R.ok(coinService.save(coin));
+	}
 
-    /**
-     * 新增币种表
-     * @param coin 币种表
-     * @return R
-     */
-    @Operation(summary = "新增币种表", description = "新增币种表")
-    @SysLog("新增币种表" )
-    @PostMapping
-    @PreAuthorize("@pms.hasPermission('exchange_coin_add')" )
-    public R save(@RequestBody Coin coin) {
-        return R.ok(coinService.save(coin));
-    }
+	/**
+	 * 修改币种表
+	 * @param coin 币种表
+	 * @return R
+	 */
+	@Operation(summary = "修改币种表", description = "修改币种表")
+	@SysLog("修改币种表")
+	@PutMapping
+	@PreAuthorize("@pms.hasPermission('exchange_coin_edit')")
+	public R updateById(@RequestBody Coin coin) {
+		return R.ok(coinService.updateById(coin));
+	}
 
-    /**
-     * 修改币种表
-     * @param coin 币种表
-     * @return R
-     */
-    @Operation(summary = "修改币种表", description = "修改币种表")
-    @SysLog("修改币种表" )
-    @PutMapping
-    @PreAuthorize("@pms.hasPermission('exchange_coin_edit')" )
-    public R updateById(@RequestBody Coin coin) {
-        return R.ok(coinService.updateById(coin));
-    }
-
-    /**
-     * 通过id删除币种表
-     * @param id id
-     * @return R
-     */
-    @Operation(summary = "通过id删除币种表", description = "通过id删除币种表")
-    @SysLog("通过id删除币种表" )
-    @DeleteMapping("/{id}" )
-    @PreAuthorize("@pms.hasPermission('exchange_coin_del')" )
-    public R removeById(@PathVariable Long id) {
-        return R.ok(coinService.removeById(id));
-    }
+	/**
+	 * 通过id删除币种表
+	 * @param id id
+	 * @return R
+	 */
+	@Operation(summary = "通过id删除币种表", description = "通过id删除币种表")
+	@SysLog("通过id删除币种表")
+	@DeleteMapping("/{id}")
+	@PreAuthorize("@pms.hasPermission('exchange_coin_del')")
+	public R removeById(@PathVariable Long id) {
+		return R.ok(coinService.removeById(id));
+	}
 
 }

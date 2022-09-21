@@ -31,7 +31,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
-
 /**
  * 成交订单
  *
@@ -40,76 +39,75 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/turnoverorder" )
+@RequestMapping("/turnoverorder")
 @Tag(name = "成交订单管理")
 @SecurityRequirement(name = HttpHeaders.AUTHORIZATION)
 public class TurnoverOrderController {
 
-    private final  TurnoverOrderService turnoverOrderService;
+	private final TurnoverOrderService turnoverOrderService;
 
-    /**
-     * 分页查询
-     * @param page 分页对象
-     * @param turnoverOrder 成交订单
-     * @return
-     */
-    @Operation(summary = "分页查询", description = "分页查询")
-    @GetMapping("/page" )
-    @PreAuthorize("@pms.hasPermission('exchange_turnoverorder_get')" )
-    public R getTurnoverOrderPage(Page page, TurnoverOrder turnoverOrder) {
-        return R.ok(turnoverOrderService.page(page, Wrappers.query(turnoverOrder)));
-    }
+	/**
+	 * 分页查询
+	 * @param page 分页对象
+	 * @param turnoverOrder 成交订单
+	 * @return
+	 */
+	@Operation(summary = "分页查询", description = "分页查询")
+	@GetMapping("/page")
+	@PreAuthorize("@pms.hasPermission('exchange_turnoverorder_get')")
+	public R getTurnoverOrderPage(Page page, TurnoverOrder turnoverOrder) {
+		return R.ok(turnoverOrderService.page(page, Wrappers.query(turnoverOrder)));
+	}
 
+	/**
+	 * 通过id查询成交订单
+	 * @param id id
+	 * @return R
+	 */
+	@Operation(summary = "通过id查询", description = "通过id查询")
+	@GetMapping("/{id}")
+	@PreAuthorize("@pms.hasPermission('exchange_turnoverorder_get')")
+	public R getById(@PathVariable("id") Long id) {
+		return R.ok(turnoverOrderService.getById(id));
+	}
 
-    /**
-     * 通过id查询成交订单
-     * @param id id
-     * @return R
-     */
-    @Operation(summary = "通过id查询", description = "通过id查询")
-    @GetMapping("/{id}" )
-    @PreAuthorize("@pms.hasPermission('exchange_turnoverorder_get')" )
-    public R getById(@PathVariable("id" ) Long id) {
-        return R.ok(turnoverOrderService.getById(id));
-    }
+	/**
+	 * 新增成交订单
+	 * @param turnoverOrder 成交订单
+	 * @return R
+	 */
+	@Operation(summary = "新增成交订单", description = "新增成交订单")
+	@SysLog("新增成交订单")
+	@PostMapping
+	@PreAuthorize("@pms.hasPermission('exchange_turnoverorder_add')")
+	public R save(@RequestBody TurnoverOrder turnoverOrder) {
+		return R.ok(turnoverOrderService.save(turnoverOrder));
+	}
 
-    /**
-     * 新增成交订单
-     * @param turnoverOrder 成交订单
-     * @return R
-     */
-    @Operation(summary = "新增成交订单", description = "新增成交订单")
-    @SysLog("新增成交订单" )
-    @PostMapping
-    @PreAuthorize("@pms.hasPermission('exchange_turnoverorder_add')" )
-    public R save(@RequestBody TurnoverOrder turnoverOrder) {
-        return R.ok(turnoverOrderService.save(turnoverOrder));
-    }
+	/**
+	 * 修改成交订单
+	 * @param turnoverOrder 成交订单
+	 * @return R
+	 */
+	@Operation(summary = "修改成交订单", description = "修改成交订单")
+	@SysLog("修改成交订单")
+	@PutMapping
+	@PreAuthorize("@pms.hasPermission('exchange_turnoverorder_edit')")
+	public R updateById(@RequestBody TurnoverOrder turnoverOrder) {
+		return R.ok(turnoverOrderService.updateById(turnoverOrder));
+	}
 
-    /**
-     * 修改成交订单
-     * @param turnoverOrder 成交订单
-     * @return R
-     */
-    @Operation(summary = "修改成交订单", description = "修改成交订单")
-    @SysLog("修改成交订单" )
-    @PutMapping
-    @PreAuthorize("@pms.hasPermission('exchange_turnoverorder_edit')" )
-    public R updateById(@RequestBody TurnoverOrder turnoverOrder) {
-        return R.ok(turnoverOrderService.updateById(turnoverOrder));
-    }
-
-    /**
-     * 通过id删除成交订单
-     * @param id id
-     * @return R
-     */
-    @Operation(summary = "通过id删除成交订单", description = "通过id删除成交订单")
-    @SysLog("通过id删除成交订单" )
-    @DeleteMapping("/{id}" )
-    @PreAuthorize("@pms.hasPermission('exchange_turnoverorder_del')" )
-    public R removeById(@PathVariable Long id) {
-        return R.ok(turnoverOrderService.removeById(id));
-    }
+	/**
+	 * 通过id删除成交订单
+	 * @param id id
+	 * @return R
+	 */
+	@Operation(summary = "通过id删除成交订单", description = "通过id删除成交订单")
+	@SysLog("通过id删除成交订单")
+	@DeleteMapping("/{id}")
+	@PreAuthorize("@pms.hasPermission('exchange_turnoverorder_del')")
+	public R removeById(@PathVariable Long id) {
+		return R.ok(turnoverOrderService.removeById(id));
+	}
 
 }

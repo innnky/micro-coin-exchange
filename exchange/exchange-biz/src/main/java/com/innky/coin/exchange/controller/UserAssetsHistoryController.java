@@ -31,7 +31,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
-
 /**
  * 用户资产流水
  *
@@ -40,76 +39,75 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/userassetshistory" )
+@RequestMapping("/userassetshistory")
 @Tag(name = "用户资产流水管理")
 @SecurityRequirement(name = HttpHeaders.AUTHORIZATION)
 public class UserAssetsHistoryController {
 
-    private final  UserAssetsHistoryService userAssetsHistoryService;
+	private final UserAssetsHistoryService userAssetsHistoryService;
 
-    /**
-     * 分页查询
-     * @param page 分页对象
-     * @param userAssetsHistory 用户资产流水
-     * @return
-     */
-    @Operation(summary = "分页查询", description = "分页查询")
-    @GetMapping("/page" )
-    @PreAuthorize("@pms.hasPermission('exchange_userassetshistory_get')" )
-    public R getUserAssetsHistoryPage(Page page, UserAssetsHistory userAssetsHistory) {
-        return R.ok(userAssetsHistoryService.page(page, Wrappers.query(userAssetsHistory)));
-    }
+	/**
+	 * 分页查询
+	 * @param page 分页对象
+	 * @param userAssetsHistory 用户资产流水
+	 * @return
+	 */
+	@Operation(summary = "分页查询", description = "分页查询")
+	@GetMapping("/page")
+	@PreAuthorize("@pms.hasPermission('exchange_userassetshistory_get')")
+	public R getUserAssetsHistoryPage(Page page, UserAssetsHistory userAssetsHistory) {
+		return R.ok(userAssetsHistoryService.page(page, Wrappers.query(userAssetsHistory)));
+	}
 
+	/**
+	 * 通过id查询用户资产流水
+	 * @param id id
+	 * @return R
+	 */
+	@Operation(summary = "通过id查询", description = "通过id查询")
+	@GetMapping("/{id}")
+	@PreAuthorize("@pms.hasPermission('exchange_userassetshistory_get')")
+	public R getById(@PathVariable("id") Long id) {
+		return R.ok(userAssetsHistoryService.getById(id));
+	}
 
-    /**
-     * 通过id查询用户资产流水
-     * @param id id
-     * @return R
-     */
-    @Operation(summary = "通过id查询", description = "通过id查询")
-    @GetMapping("/{id}" )
-    @PreAuthorize("@pms.hasPermission('exchange_userassetshistory_get')" )
-    public R getById(@PathVariable("id" ) Long id) {
-        return R.ok(userAssetsHistoryService.getById(id));
-    }
+	/**
+	 * 新增用户资产流水
+	 * @param userAssetsHistory 用户资产流水
+	 * @return R
+	 */
+	@Operation(summary = "新增用户资产流水", description = "新增用户资产流水")
+	@SysLog("新增用户资产流水")
+	@PostMapping
+	@PreAuthorize("@pms.hasPermission('exchange_userassetshistory_add')")
+	public R save(@RequestBody UserAssetsHistory userAssetsHistory) {
+		return R.ok(userAssetsHistoryService.save(userAssetsHistory));
+	}
 
-    /**
-     * 新增用户资产流水
-     * @param userAssetsHistory 用户资产流水
-     * @return R
-     */
-    @Operation(summary = "新增用户资产流水", description = "新增用户资产流水")
-    @SysLog("新增用户资产流水" )
-    @PostMapping
-    @PreAuthorize("@pms.hasPermission('exchange_userassetshistory_add')" )
-    public R save(@RequestBody UserAssetsHistory userAssetsHistory) {
-        return R.ok(userAssetsHistoryService.save(userAssetsHistory));
-    }
+	/**
+	 * 修改用户资产流水
+	 * @param userAssetsHistory 用户资产流水
+	 * @return R
+	 */
+	@Operation(summary = "修改用户资产流水", description = "修改用户资产流水")
+	@SysLog("修改用户资产流水")
+	@PutMapping
+	@PreAuthorize("@pms.hasPermission('exchange_userassetshistory_edit')")
+	public R updateById(@RequestBody UserAssetsHistory userAssetsHistory) {
+		return R.ok(userAssetsHistoryService.updateById(userAssetsHistory));
+	}
 
-    /**
-     * 修改用户资产流水
-     * @param userAssetsHistory 用户资产流水
-     * @return R
-     */
-    @Operation(summary = "修改用户资产流水", description = "修改用户资产流水")
-    @SysLog("修改用户资产流水" )
-    @PutMapping
-    @PreAuthorize("@pms.hasPermission('exchange_userassetshistory_edit')" )
-    public R updateById(@RequestBody UserAssetsHistory userAssetsHistory) {
-        return R.ok(userAssetsHistoryService.updateById(userAssetsHistory));
-    }
-
-    /**
-     * 通过id删除用户资产流水
-     * @param id id
-     * @return R
-     */
-    @Operation(summary = "通过id删除用户资产流水", description = "通过id删除用户资产流水")
-    @SysLog("通过id删除用户资产流水" )
-    @DeleteMapping("/{id}" )
-    @PreAuthorize("@pms.hasPermission('exchange_userassetshistory_del')" )
-    public R removeById(@PathVariable Long id) {
-        return R.ok(userAssetsHistoryService.removeById(id));
-    }
+	/**
+	 * 通过id删除用户资产流水
+	 * @param id id
+	 * @return R
+	 */
+	@Operation(summary = "通过id删除用户资产流水", description = "通过id删除用户资产流水")
+	@SysLog("通过id删除用户资产流水")
+	@DeleteMapping("/{id}")
+	@PreAuthorize("@pms.hasPermission('exchange_userassetshistory_del')")
+	public R removeById(@PathVariable Long id) {
+		return R.ok(userAssetsHistoryService.removeById(id));
+	}
 
 }

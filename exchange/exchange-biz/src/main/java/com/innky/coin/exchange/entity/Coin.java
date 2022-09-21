@@ -38,24 +38,23 @@ import java.math.BigDecimal;
 @Schema(description = "币种表")
 public class Coin extends BaseEntity {
 
-    /**
-     * id
-     */
-    @TableId(type = IdType.ASSIGN_ID)
-    @Schema(description ="id")
-    private Long id;
+	/**
+	 * id
+	 */
+	@TableId(type = IdType.ASSIGN_ID)
+	@Schema(description = "id")
+	private Long id;
 
-    /**
-     * 币种名称
-     */
-    @Schema(description ="币种名称")
-    private String coinName;
+	/**
+	 * 币种名称
+	 */
+	@Schema(description = "币种名称")
+	private String coinName;
 
-    /**
-     * 币种系统余额
-     */
-    @Schema(description ="币种系统余额")
-    private BigDecimal balance;
-
+	/**
+	 * 币种系统余额
+	 */
+	@Schema(description = "币种系统余额")
+	private BigDecimal balance;
 
 }

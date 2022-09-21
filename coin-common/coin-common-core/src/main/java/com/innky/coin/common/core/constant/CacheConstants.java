@@ -64,4 +64,9 @@ public interface CacheConstants {
 	 */
 	String PARAMS_DETAILS = "params_details";
 
+	/**
+	 * 前台用户信息缓存
+	 */
+	String PORTAL_USER_DETAILS = "portal_user_details";
+
 }

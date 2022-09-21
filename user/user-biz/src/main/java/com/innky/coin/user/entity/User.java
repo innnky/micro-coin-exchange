@@ -36,30 +36,29 @@ import lombok.EqualsAndHashCode;
 @Schema(description = "用户表")
 public class User extends BaseEntity {
 
-    /**
-     * id
-     */
-    @TableId(type = IdType.ASSIGN_ID)
-    @Schema(description ="id")
-    private Long id;
+	/**
+	 * id
+	 */
+	@TableId(type = IdType.ASSIGN_ID)
+	@Schema(description = "id")
+	private Long id;
 
-    /**
-     * 用户名
-     */
-    @Schema(description ="用户名")
-    private String username;
+	/**
+	 * 用户名
+	 */
+	@Schema(description = "用户名")
+	private String username;
 
-    /**
-     * 密码
-     */
-    @Schema(description ="密码")
-    private String password;
+	/**
+	 * 密码
+	 */
+	@Schema(description = "密码")
+	private String password;
 
-    /**
-     * 邮箱
-     */
-    @Schema(description ="邮箱")
-    private String email;
-
+	/**
+	 * 邮箱
+	 */
+	@Schema(description = "邮箱")
+	private String email;
 
 }

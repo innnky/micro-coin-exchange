@@ -38,36 +38,35 @@ import java.math.BigDecimal;
 @Schema(description = "交易对表")
 public class Market extends BaseEntity {
 
-    /**
-     * id
-     */
-    @TableId(type = IdType.ASSIGN_ID)
-    @Schema(description ="id")
-    private Long id;
+	/**
+	 * id
+	 */
+	@TableId(type = IdType.ASSIGN_ID)
+	@Schema(description = "id")
+	private Long id;
 
-    /**
-     * 符号
-     */
-    @Schema(description ="符号")
-    private String symbol;
+	/**
+	 * 符号
+	 */
+	@Schema(description = "符号")
+	private String symbol;
 
-    /**
-     * 卖方币种id
-     */
-    @Schema(description ="卖方币种id")
-    private Long sellCoinId;
+	/**
+	 * 卖方币种id
+	 */
+	@Schema(description = "卖方币种id")
+	private Long sellCoinId;
 
-    /**
-     * 买方币种id
-     */
-    @Schema(description ="买方币种id")
-    private Long buyCoinId;
+	/**
+	 * 买方币种id
+	 */
+	@Schema(description = "买方币种id")
+	private Long buyCoinId;
 
-    /**
-     * 开盘价
-     */
-    @Schema(description ="开盘价")
-    private BigDecimal openPrice;
-
+	/**
+	 * 开盘价
+	 */
+	@Schema(description = "开盘价")
+	private BigDecimal openPrice;
 
 }

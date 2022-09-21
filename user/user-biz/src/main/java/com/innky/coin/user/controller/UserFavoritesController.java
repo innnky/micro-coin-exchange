@@ -31,7 +31,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
-
 /**
  * 用户自选列表
  *
@@ -40,76 +39,75 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/userfavorites" )
+@RequestMapping("/userfavorites")
 @Tag(name = "用户自选列表管理")
 @SecurityRequirement(name = HttpHeaders.AUTHORIZATION)
 public class UserFavoritesController {
 
-    private final  UserFavoritesService userFavoritesService;
+	private final UserFavoritesService userFavoritesService;
 
-    /**
-     * 分页查询
-     * @param page 分页对象
-     * @param userFavorites 用户自选列表
-     * @return
-     */
-    @Operation(summary = "分页查询", description = "分页查询")
-    @GetMapping("/page" )
-    @PreAuthorize("@pms.hasPermission('user_userfavorites_get')" )
-    public R getUserFavoritesPage(Page page, UserFavorites userFavorites) {
-        return R.ok(userFavoritesService.page(page, Wrappers.query(userFavorites)));
-    }
+	/**
+	 * 分页查询
+	 * @param page 分页对象
+	 * @param userFavorites 用户自选列表
+	 * @return
+	 */
+	@Operation(summary = "分页查询", description = "分页查询")
+	@GetMapping("/page")
+	@PreAuthorize("@pms.hasPermission('user_userfavorites_get')")
+	public R getUserFavoritesPage(Page page, UserFavorites userFavorites) {
+		return R.ok(userFavoritesService.page(page, Wrappers.query(userFavorites)));
+	}
 
+	/**
+	 * 通过id查询用户自选列表
+	 * @param id id
+	 * @return R
+	 */
+	@Operation(summary = "通过id查询", description = "通过id查询")
+	@GetMapping("/{id}")
+	@PreAuthorize("@pms.hasPermission('user_userfavorites_get')")
+	public R getById(@PathVariable("id") Long id) {
+		return R.ok(userFavoritesService.getById(id));
+	}
 
-    /**
-     * 通过id查询用户自选列表
-     * @param id id
-     * @return R
-     */
-    @Operation(summary = "通过id查询", description = "通过id查询")
-    @GetMapping("/{id}" )
-    @PreAuthorize("@pms.hasPermission('user_userfavorites_get')" )
-    public R getById(@PathVariable("id" ) Long id) {
-        return R.ok(userFavoritesService.getById(id));
-    }
+	/**
+	 * 新增用户自选列表
+	 * @param userFavorites 用户自选列表
+	 * @return R
+	 */
+	@Operation(summary = "新增用户自选列表", description = "新增用户自选列表")
+	@SysLog("新增用户自选列表")
+	@PostMapping
+	@PreAuthorize("@pms.hasPermission('user_userfavorites_add')")
+	public R save(@RequestBody UserFavorites userFavorites) {
+		return R.ok(userFavoritesService.save(userFavorites));
+	}
 
-    /**
-     * 新增用户自选列表
-     * @param userFavorites 用户自选列表
-     * @return R
-     */
-    @Operation(summary = "新增用户自选列表", description = "新增用户自选列表")
-    @SysLog("新增用户自选列表" )
-    @PostMapping
-    @PreAuthorize("@pms.hasPermission('user_userfavorites_add')" )
-    public R save(@RequestBody UserFavorites userFavorites) {
-        return R.ok(userFavoritesService.save(userFavorites));
-    }
+	/**
+	 * 修改用户自选列表
+	 * @param userFavorites 用户自选列表
+	 * @return R
+	 */
+	@Operation(summary = "修改用户自选列表", description = "修改用户自选列表")
+	@SysLog("修改用户自选列表")
+	@PutMapping
+	@PreAuthorize("@pms.hasPermission('user_userfavorites_edit')")
+	public R updateById(@RequestBody UserFavorites userFavorites) {
+		return R.ok(userFavoritesService.updateById(userFavorites));
+	}
 
-    /**
-     * 修改用户自选列表
-     * @param userFavorites 用户自选列表
-     * @return R
-     */
-    @Operation(summary = "修改用户自选列表", description = "修改用户自选列表")
-    @SysLog("修改用户自选列表" )
-    @PutMapping
-    @PreAuthorize("@pms.hasPermission('user_userfavorites_edit')" )
-    public R updateById(@RequestBody UserFavorites userFavorites) {
-        return R.ok(userFavoritesService.updateById(userFavorites));
-    }
-
-    /**
-     * 通过id删除用户自选列表
-     * @param id id
-     * @return R
-     */
-    @Operation(summary = "通过id删除用户自选列表", description = "通过id删除用户自选列表")
-    @SysLog("通过id删除用户自选列表" )
-    @DeleteMapping("/{id}" )
-    @PreAuthorize("@pms.hasPermission('user_userfavorites_del')" )
-    public R removeById(@PathVariable Long id) {
-        return R.ok(userFavoritesService.removeById(id));
-    }
+	/**
+	 * 通过id删除用户自选列表
+	 * @param id id
+	 * @return R
+	 */
+	@Operation(summary = "通过id删除用户自选列表", description = "通过id删除用户自选列表")
+	@SysLog("通过id删除用户自选列表")
+	@DeleteMapping("/{id}")
+	@PreAuthorize("@pms.hasPermission('user_userfavorites_del')")
+	public R removeById(@PathVariable Long id) {
+		return R.ok(userFavoritesService.removeById(id));
+	}
 
 }

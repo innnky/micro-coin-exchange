@@ -29,6 +29,7 @@ import org.springframework.stereotype.Service;
  * @date 2022-09-16 15:30:21
  */
 @Service
-public class UserAssetsHistoryServiceImpl extends ServiceImpl<UserAssetsHistoryMapper, UserAssetsHistory> implements UserAssetsHistoryService {
+public class UserAssetsHistoryServiceImpl extends ServiceImpl<UserAssetsHistoryMapper, UserAssetsHistory>
+		implements UserAssetsHistoryService {
 
 }

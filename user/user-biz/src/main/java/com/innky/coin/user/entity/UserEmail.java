@@ -36,42 +36,41 @@ import lombok.EqualsAndHashCode;
 @Schema(description = "用户邮件表")
 public class UserEmail extends BaseEntity {
 
-    /**
-     * id
-     */
-    @TableId(type = IdType.ASSIGN_ID)
-    @Schema(description ="id")
-    private Long id;
+	/**
+	 * id
+	 */
+	@TableId(type = IdType.ASSIGN_ID)
+	@Schema(description = "id")
+	private Long id;
 
-    /**
-     * 用户id
-     */
-    @Schema(description ="用户id")
-    private Long userId;
+	/**
+	 * 用户id
+	 */
+	@Schema(description = "用户id")
+	private Long userId;
 
-    /**
-     * 邮件目的地
-     */
-    @Schema(description ="邮件目的地")
-    private String sendTo;
+	/**
+	 * 邮件目的地
+	 */
+	@Schema(description = "邮件目的地")
+	private String sendTo;
 
-    /**
-     * 邮件发送方
-     */
-    @Schema(description ="邮件发送方")
-    private String sendFrom;
+	/**
+	 * 邮件发送方
+	 */
+	@Schema(description = "邮件发送方")
+	private String sendFrom;
 
-    /**
-     * 邮件标题
-     */
-    @Schema(description ="邮件标题")
-    private String title;
+	/**
+	 * 邮件标题
+	 */
+	@Schema(description = "邮件标题")
+	private String title;
 
-    /**
-     * 邮件内容
-     */
-    @Schema(description ="邮件内容")
-    private String content;
-
+	/**
+	 * 邮件内容
+	 */
+	@Schema(description = "邮件内容")
+	private String content;
 
 }

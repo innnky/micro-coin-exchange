@@ -1,4 +1,5 @@
 com.innky.coin.common.security.service.CoinUserDetailsServiceImpl
+com.innky.coin.common.security.service.CoinPortalUserDetailsServiceImpl
 com.innky.coin.common.security.service.CoinAppUserDetailsServiceImpl
 com.innky.coin.common.security.service.CoinRedisOAuth2AuthorizationService
 com.innky.coin.common.security.service.CoinRedisOAuth2AuthorizationConsentService

@@ -1,10 +1,17 @@
 import axios from "./axios";
-
+import qs from 'qs';
+import store from "@/store";
 export const getRequest = (url, param) => {
+    store.commit('getToken')
+    const token = store.state.user.token
+
     return axios.request({
         url,
         method: 'get',
-        params:param
+        params:param,
+        headers:{
+            authorization: `Bearer ${token}`
+        }
     })
 }
 export const getRequestWithData = (url, param, data) => {
@@ -17,31 +24,51 @@ export const getRequestWithData = (url, param, data) => {
 }
 
 export const postRequest = (url, param) => {
+    store.commit('getToken')
+    const token = store.state.user.token
     return axios.request({
         url,
         method: 'post',
-        data:param
+        data:param,
+        headers:{
+            authorization: `Bearer ${token}`
+        }
     })
 }
 export const putRequest = (url, param) => {
+    store.commit('getToken')
+    const token = store.state.user.token
     return axios.request({
         url,
         method: 'put',
-        data:param
+        data:param,
+        headers:{
+            authorization: `Bearer ${token}`
+        }
     })
 }
 export const delRequest = (url, param) => {
+    store.commit('getToken')
+    const token = store.state.user.token
     return axios.request({
         url,
         method: 'delete',
-        data:param
+        data:param,
+        headers:{
+            authorization: `Bearer ${token}`
+        }
     })
 }
 
-export const doLogin = (param) => {
+export const doLogin = (d) => {
+
     return axios.request({
-        url:'/login',
+        url:'/auth/oauth2/token?grant_type=password&scope=server',
         method: 'post',
-        params: param
+        data: qs.stringify(d),
+        auth: {
+            username: "portal",
+            password: "portal"
+        },
     })
 }

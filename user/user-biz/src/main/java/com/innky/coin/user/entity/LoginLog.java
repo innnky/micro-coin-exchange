@@ -36,24 +36,23 @@ import lombok.EqualsAndHashCode;
 @Schema(description = "用户登录日志")
 public class LoginLog extends BaseEntity {
 
-    /**
-     * id
-     */
-    @TableId(type = IdType.ASSIGN_ID)
-    @Schema(description ="id")
-    private Long id;
+	/**
+	 * id
+	 */
+	@TableId(type = IdType.ASSIGN_ID)
+	@Schema(description = "id")
+	private Long id;
 
-    /**
-     * 用户id
-     */
-    @Schema(description ="用户id")
-    private Long userId;
+	/**
+	 * 用户id
+	 */
+	@Schema(description = "用户id")
+	private Long userId;
 
-    /**
-     * ip
-     */
-    @Schema(description ="ip")
-    private String ip;
-
+	/**
+	 * ip
+	 */
+	@Schema(description = "ip")
+	private String ip;
 
 }

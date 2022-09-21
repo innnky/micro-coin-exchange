@@ -17,6 +17,7 @@
 package com.innky.coin.user.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.innky.coin.user.dto.PortalUserInfo;
 import com.innky.coin.user.entity.User;
 import com.innky.coin.user.mapper.UserMapper;
 import com.innky.coin.user.service.UserService;
@@ -30,5 +31,10 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
+
+	@Override
+	public PortalUserInfo getPortalUserInfo(User user) {
+		return new PortalUserInfo(user.getId(), user.getUsername(), user.getPassword(), user.getEmail());
+	}
 
 }

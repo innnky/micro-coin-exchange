@@ -8,10 +8,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
-* @author pig archetype
-* <p>
-* 项目启动类
-*/
+ * @author pig archetype
+ * <p>
+ * 项目启动类
+ */
 @EnableCoinDoc
 @EnableCoinFeignClients
 @EnableCoinResourceServer
@@ -19,8 +19,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SpringBootApplication
 public class ExchangeApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(ExchangeApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(ExchangeApplication.class, args);
+	}
 
 }

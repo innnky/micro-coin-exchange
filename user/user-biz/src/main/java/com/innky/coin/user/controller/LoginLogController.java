@@ -31,7 +31,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
-
 /**
  * 用户登录日志
  *
@@ -40,76 +39,75 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/loginlog" )
+@RequestMapping("/loginlog")
 @Tag(name = "用户登录日志管理")
 @SecurityRequirement(name = HttpHeaders.AUTHORIZATION)
 public class LoginLogController {
 
-    private final  LoginLogService loginLogService;
+	private final LoginLogService loginLogService;
 
-    /**
-     * 分页查询
-     * @param page 分页对象
-     * @param loginLog 用户登录日志
-     * @return
-     */
-    @Operation(summary = "分页查询", description = "分页查询")
-    @GetMapping("/page" )
-    @PreAuthorize("@pms.hasPermission('user_loginlog_get')" )
-    public R getLoginLogPage(Page page, LoginLog loginLog) {
-        return R.ok(loginLogService.page(page, Wrappers.query(loginLog)));
-    }
+	/**
+	 * 分页查询
+	 * @param page 分页对象
+	 * @param loginLog 用户登录日志
+	 * @return
+	 */
+	@Operation(summary = "分页查询", description = "分页查询")
+	@GetMapping("/page")
+	@PreAuthorize("@pms.hasPermission('user_loginlog_get')")
+	public R getLoginLogPage(Page page, LoginLog loginLog) {
+		return R.ok(loginLogService.page(page, Wrappers.query(loginLog)));
+	}
 
+	/**
+	 * 通过id查询用户登录日志
+	 * @param id id
+	 * @return R
+	 */
+	@Operation(summary = "通过id查询", description = "通过id查询")
+	@GetMapping("/{id}")
+	@PreAuthorize("@pms.hasPermission('user_loginlog_get')")
+	public R getById(@PathVariable("id") Long id) {
+		return R.ok(loginLogService.getById(id));
+	}
 
-    /**
-     * 通过id查询用户登录日志
-     * @param id id
-     * @return R
-     */
-    @Operation(summary = "通过id查询", description = "通过id查询")
-    @GetMapping("/{id}" )
-    @PreAuthorize("@pms.hasPermission('user_loginlog_get')" )
-    public R getById(@PathVariable("id" ) Long id) {
-        return R.ok(loginLogService.getById(id));
-    }
+	/**
+	 * 新增用户登录日志
+	 * @param loginLog 用户登录日志
+	 * @return R
+	 */
+	@Operation(summary = "新增用户登录日志", description = "新增用户登录日志")
+	@SysLog("新增用户登录日志")
+	@PostMapping
+	@PreAuthorize("@pms.hasPermission('user_loginlog_add')")
+	public R save(@RequestBody LoginLog loginLog) {
+		return R.ok(loginLogService.save(loginLog));
+	}
 
-    /**
-     * 新增用户登录日志
-     * @param loginLog 用户登录日志
-     * @return R
-     */
-    @Operation(summary = "新增用户登录日志", description = "新增用户登录日志")
-    @SysLog("新增用户登录日志" )
-    @PostMapping
-    @PreAuthorize("@pms.hasPermission('user_loginlog_add')" )
-    public R save(@RequestBody LoginLog loginLog) {
-        return R.ok(loginLogService.save(loginLog));
-    }
+	/**
+	 * 修改用户登录日志
+	 * @param loginLog 用户登录日志
+	 * @return R
+	 */
+	@Operation(summary = "修改用户登录日志", description = "修改用户登录日志")
+	@SysLog("修改用户登录日志")
+	@PutMapping
+	@PreAuthorize("@pms.hasPermission('user_loginlog_edit')")
+	public R updateById(@RequestBody LoginLog loginLog) {
+		return R.ok(loginLogService.updateById(loginLog));
+	}
 
-    /**
-     * 修改用户登录日志
-     * @param loginLog 用户登录日志
-     * @return R
-     */
-    @Operation(summary = "修改用户登录日志", description = "修改用户登录日志")
-    @SysLog("修改用户登录日志" )
-    @PutMapping
-    @PreAuthorize("@pms.hasPermission('user_loginlog_edit')" )
-    public R updateById(@RequestBody LoginLog loginLog) {
-        return R.ok(loginLogService.updateById(loginLog));
-    }
-
-    /**
-     * 通过id删除用户登录日志
-     * @param id id
-     * @return R
-     */
-    @Operation(summary = "通过id删除用户登录日志", description = "通过id删除用户登录日志")
-    @SysLog("通过id删除用户登录日志" )
-    @DeleteMapping("/{id}" )
-    @PreAuthorize("@pms.hasPermission('user_loginlog_del')" )
-    public R removeById(@PathVariable Long id) {
-        return R.ok(loginLogService.removeById(id));
-    }
+	/**
+	 * 通过id删除用户登录日志
+	 * @param id id
+	 * @return R
+	 */
+	@Operation(summary = "通过id删除用户登录日志", description = "通过id删除用户登录日志")
+	@SysLog("通过id删除用户登录日志")
+	@DeleteMapping("/{id}")
+	@PreAuthorize("@pms.hasPermission('user_loginlog_del')")
+	public R removeById(@PathVariable Long id) {
+		return R.ok(loginLogService.removeById(id));
+	}
 
 }

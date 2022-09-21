@@ -1,7 +1,6 @@
 export default {
     baseURL:{
-        dev:'http://localhost:8081/',
+        dev:'http://127.0.0.1:9999/',
         pro:''
     },
-    openstackUrl:'http://192.168.50.53/'
 }

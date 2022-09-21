@@ -41,6 +41,11 @@
             <groupId>com.innky</groupId>
             <artifactId>coin-upms-api</artifactId>
         </dependency>
+		<dependency>
+			<groupId>com.innky</groupId>
+			<artifactId>user-api</artifactId>
+			<version>3.5.2</version>
+		</dependency>
         <!--common utils-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

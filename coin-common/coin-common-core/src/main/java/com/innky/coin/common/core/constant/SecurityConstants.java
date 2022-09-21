@@ -122,4 +122,9 @@ public interface SecurityConstants {
 	 */
 	String CUSTOM_CONSENT_PAGE_URI = "/token/confirm_access";
 
+	/**
+	 * 前台
+	 */
+	String PORTAL = "portal";
+
 }

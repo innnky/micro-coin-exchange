@@ -28,4 +28,6 @@ security:
       client-id: pig
       client-secret: pig
       scope: server
-
+logging:
+  level:
+    com.innky.coin.user: debug

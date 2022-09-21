@@ -32,4 +32,9 @@ public interface ServiceNameConstants {
 	 */
 	String UMPS_SERVICE = "coin-upms-biz";
 
+	/**
+	 * 前台用户服务模块
+	 */
+	String USER_SERVICE = "user-biz";
+
 }

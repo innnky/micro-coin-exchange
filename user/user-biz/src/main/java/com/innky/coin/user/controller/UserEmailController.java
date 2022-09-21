@@ -31,7 +31,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
-
 /**
  * 用户邮件表
  *
@@ -40,76 +39,75 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/useremail" )
+@RequestMapping("/useremail")
 @Tag(name = "用户邮件表管理")
 @SecurityRequirement(name = HttpHeaders.AUTHORIZATION)
 public class UserEmailController {
 
-    private final  UserEmailService userEmailService;
+	private final UserEmailService userEmailService;
 
-    /**
-     * 分页查询
-     * @param page 分页对象
-     * @param userEmail 用户邮件表
-     * @return
-     */
-    @Operation(summary = "分页查询", description = "分页查询")
-    @GetMapping("/page" )
-    @PreAuthorize("@pms.hasPermission('user_useremail_get')" )
-    public R getUserEmailPage(Page page, UserEmail userEmail) {
-        return R.ok(userEmailService.page(page, Wrappers.query(userEmail)));
-    }
+	/**
+	 * 分页查询
+	 * @param page 分页对象
+	 * @param userEmail 用户邮件表
+	 * @return
+	 */
+	@Operation(summary = "分页查询", description = "分页查询")
+	@GetMapping("/page")
+	@PreAuthorize("@pms.hasPermission('user_useremail_get')")
+	public R getUserEmailPage(Page page, UserEmail userEmail) {
+		return R.ok(userEmailService.page(page, Wrappers.query(userEmail)));
+	}
 
+	/**
+	 * 通过id查询用户邮件表
+	 * @param id id
+	 * @return R
+	 */
+	@Operation(summary = "通过id查询", description = "通过id查询")
+	@GetMapping("/{id}")
+	@PreAuthorize("@pms.hasPermission('user_useremail_get')")
+	public R getById(@PathVariable("id") Long id) {
+		return R.ok(userEmailService.getById(id));
+	}
 
-    /**
-     * 通过id查询用户邮件表
-     * @param id id
-     * @return R
-     */
-    @Operation(summary = "通过id查询", description = "通过id查询")
-    @GetMapping("/{id}" )
-    @PreAuthorize("@pms.hasPermission('user_useremail_get')" )
-    public R getById(@PathVariable("id" ) Long id) {
-        return R.ok(userEmailService.getById(id));
-    }
+	/**
+	 * 新增用户邮件表
+	 * @param userEmail 用户邮件表
+	 * @return R
+	 */
+	@Operation(summary = "新增用户邮件表", description = "新增用户邮件表")
+	@SysLog("新增用户邮件表")
+	@PostMapping
+	@PreAuthorize("@pms.hasPermission('user_useremail_add')")
+	public R save(@RequestBody UserEmail userEmail) {
+		return R.ok(userEmailService.save(userEmail));
+	}
 
-    /**
-     * 新增用户邮件表
-     * @param userEmail 用户邮件表
-     * @return R
-     */
-    @Operation(summary = "新增用户邮件表", description = "新增用户邮件表")
-    @SysLog("新增用户邮件表" )
-    @PostMapping
-    @PreAuthorize("@pms.hasPermission('user_useremail_add')" )
-    public R save(@RequestBody UserEmail userEmail) {
-        return R.ok(userEmailService.save(userEmail));
-    }
+	/**
+	 * 修改用户邮件表
+	 * @param userEmail 用户邮件表
+	 * @return R
+	 */
+	@Operation(summary = "修改用户邮件表", description = "修改用户邮件表")
+	@SysLog("修改用户邮件表")
+	@PutMapping
+	@PreAuthorize("@pms.hasPermission('user_useremail_edit')")
+	public R updateById(@RequestBody UserEmail userEmail) {
+		return R.ok(userEmailService.updateById(userEmail));
+	}
 
-    /**
-     * 修改用户邮件表
-     * @param userEmail 用户邮件表
-     * @return R
-     */
-    @Operation(summary = "修改用户邮件表", description = "修改用户邮件表")
-    @SysLog("修改用户邮件表" )
-    @PutMapping
-    @PreAuthorize("@pms.hasPermission('user_useremail_edit')" )
-    public R updateById(@RequestBody UserEmail userEmail) {
-        return R.ok(userEmailService.updateById(userEmail));
-    }
-
-    /**
-     * 通过id删除用户邮件表
-     * @param id id
-     * @return R
-     */
-    @Operation(summary = "通过id删除用户邮件表", description = "通过id删除用户邮件表")
-    @SysLog("通过id删除用户邮件表" )
-    @DeleteMapping("/{id}" )
-    @PreAuthorize("@pms.hasPermission('user_useremail_del')" )
-    public R removeById(@PathVariable Long id) {
-        return R.ok(userEmailService.removeById(id));
-    }
+	/**
+	 * 通过id删除用户邮件表
+	 * @param id id
+	 * @return R
+	 */
+	@Operation(summary = "通过id删除用户邮件表", description = "通过id删除用户邮件表")
+	@SysLog("通过id删除用户邮件表")
+	@DeleteMapping("/{id}")
+	@PreAuthorize("@pms.hasPermission('user_useremail_del')")
+	public R removeById(@PathVariable Long id) {
+		return R.ok(userEmailService.removeById(id));
+	}
 
 }
