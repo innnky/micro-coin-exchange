@@ -54,7 +54,7 @@ public class MarketController {
 	 */
 	@Operation(summary = "分页查询", description = "分页查询")
 	@GetMapping("/page")
-	@PreAuthorize("@pms.hasPermission('exchange_market_get')")
+//	@PreAuthorize("@pms.hasPermission('exchange_market_get')")
 	public R getMarketPage(Page page, Market market) {
 		return R.ok(marketService.page(page, Wrappers.query(market)));
 	}
@@ -81,7 +81,8 @@ public class MarketController {
 	@PostMapping
 	@PreAuthorize("@pms.hasPermission('exchange_market_add')")
 	public R save(@RequestBody Market market) {
-		return R.ok(marketService.save(market));
+
+		return R.ok(marketService.saveMarket(market));
 	}
 
 	/**
@@ -109,5 +110,6 @@ public class MarketController {
 	public R removeById(@PathVariable Long id) {
 		return R.ok(marketService.removeById(id));
 	}
+
 
 }

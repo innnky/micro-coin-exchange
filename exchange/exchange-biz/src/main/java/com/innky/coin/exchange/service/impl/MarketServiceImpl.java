@@ -17,10 +17,16 @@
 package com.innky.coin.exchange.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.innky.coin.exchange.entity.Coin;
 import com.innky.coin.exchange.entity.Market;
+import com.innky.coin.exchange.exception.InsertException;
 import com.innky.coin.exchange.mapper.MarketMapper;
+import com.innky.coin.exchange.service.CoinService;
 import com.innky.coin.exchange.service.MarketService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 /**
  * 交易对表
@@ -29,6 +35,20 @@ import org.springframework.stereotype.Service;
  * @date 2022-09-16 15:30:21
  */
 @Service
+@AllArgsConstructor
 public class MarketServiceImpl extends ServiceImpl<MarketMapper, Market> implements MarketService {
 
+	private final CoinService coinService;
+
+	@Override
+	public boolean saveMarket(Market market) {
+		Coin sellCoin = coinService.getById(market.getSellCoinId());
+		Coin buyCoin = coinService.getById(market.getBuyCoinId());
+		if (sellCoin == null || buyCoin == null){
+			throw new InsertException("交易对币种不存在");
+		}
+		String symbol = sellCoin.getCoinName() + buyCoin.getCoinName();
+		market.setSymbol(symbol);
+		return save(market);
+	}
 }

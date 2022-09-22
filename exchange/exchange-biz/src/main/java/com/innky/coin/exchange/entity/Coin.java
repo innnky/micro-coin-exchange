@@ -57,4 +57,16 @@ public class Coin extends BaseEntity {
 	@Schema(description = "币种系统余额")
 	private BigDecimal balance;
 
+	/**
+	 * 币种全称
+	 */
+	@Schema(description = "币种全称")
+	private String fullName;
+
+	/**
+	 * 币种描述
+	 */
+	@Schema(description = "币种描述")
+	private String coinDescription;
+
 }

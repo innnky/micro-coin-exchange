@@ -24,6 +24,18 @@
                     align="center"
                     label="币种名称">
             </el-table-column>
+          <el-table-column
+            prop="fullName"
+            header-align="center"
+            align="center"
+            label="币种全称">
+          </el-table-column>
+          <el-table-column
+            prop="coinDescription"
+            header-align="center"
+            align="center"
+            label="币种描述">
+          </el-table-column>
             <el-table-column
                     prop="balance"
                     header-align="center"

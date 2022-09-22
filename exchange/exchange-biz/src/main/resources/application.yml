@@ -1,5 +1,5 @@
 server:
-  port: 7001
+  port: 7002
 
 spring:
   application:
@@ -20,7 +20,11 @@ spring:
     username: root
     password: '000508'
     url: jdbc:mysql://coin-mysql:3306/coin_exchange?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
-
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 # spring security 配置
 security:
   oauth2:
@@ -28,4 +32,6 @@ security:
       client-id: pig
       client-secret: pig
       scope: server
-
+logging:
+  level:
+    com.innky.coin.exchange: debug

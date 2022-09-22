@@ -9,11 +9,11 @@
         text-color="#fff"
         active-text-color="#ffd04b">
       <el-menu-item index="1">首页</el-menu-item>
-      <el-menu-item index="2">交易</el-menu-item>
+      <el-menu-item index="2">交易市场</el-menu-item>
       <el-menu-item index="3">用户中心</el-menu-item>
 <!--      <el-menu-item index="3" disabled>消息中心</el-menu-item>-->
-      <el-menu-item index="4" class="float-end">登录</el-menu-item>
-      <el-menu-item index="5" class="float-end">注册</el-menu-item>
+<!--      <el-menu-item index="4" class="float-end">登录</el-menu-item>-->
+<!--      <el-menu-item index="5" class="float-end">注册</el-menu-item>-->
 
     </el-menu>
   </div>
@@ -35,7 +35,9 @@ export default {
         this.$router.push("/index")
       }
       else if(key === "2"){
-        this.$router.push("/trade")
+        this.$router.push("/market")
+      }else  if(key === "3"){
+        this.$router.push("/usercenter")
       }
       console.log(key, keyPath);
     }

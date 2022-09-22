@@ -21,8 +21,10 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.innky.coin.common.core.util.R;
 import com.innky.coin.common.log.annotation.SysLog;
+import com.innky.coin.common.security.util.SecurityUtils;
 import com.innky.coin.exchange.entity.Order;
 import com.innky.coin.exchange.service.OrderService;
+import com.innky.coin.exchange.vo.OrderVO;
 import org.springframework.security.access.prepost.PreAuthorize;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -37,6 +39,7 @@ import org.springframework.web.bind.annotation.*;
  * @author pig code generator
  * @date 2022-09-16 15:30:21
  */
+//TODO 修改前端页面订单添加字段
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/order")
@@ -108,6 +111,18 @@ public class OrderController {
 	@PreAuthorize("@pms.hasPermission('exchange_order_del')")
 	public R removeById(@PathVariable Long id) {
 		return R.ok(orderService.removeById(id));
+	}
+
+
+	/**
+	 * 创建委托单
+	 *
+	 * @param order 订单
+	 * @return {@link R}
+	 */
+@PostMapping("/new")
+	public R createOrder(@RequestBody OrderVO order){
+		return R.ok(orderService.createOrder(SecurityUtils.getUser().getId(), order));
 	}
 
 }

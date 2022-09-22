@@ -86,7 +86,7 @@ export default {
           if(res.access_token !== undefined){
             this.$store.commit("setToken", res.access_token)
             console.log(res.access_token)
-            this.$router.push("/trade")
+            this.$router.push("/index")
           }
 
       })

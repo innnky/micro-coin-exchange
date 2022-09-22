@@ -7,7 +7,9 @@ import Registration from "@/views/common/Registration";
 import Login from "@/views/common/Login";
 import MyEchart from "@/components/MyEchart";
 import Trade from "@/views/trading/Trade";
-import Index from "@/views";
+import Index from "@/views/Index";
+import Market from "@/views/trading/Market";
+import UserCenter from "@/views/user/UserCenter";
 Vue.use(VueRouter)
 const routes = [
     {
@@ -24,6 +26,14 @@ const routes = [
                 path: "/trade",
                 component: Trade
             },
+            {
+                path: "/market",
+                component: Market
+            },
+            {
+                path: "/usercenter",
+                component: UserCenter
+            }
 
         ]
     },
@@ -33,8 +43,8 @@ const routes = [
         component: Login
     },
     {
-        path: "/Registration",
-        name: 'Registration',
+        path: "/registration",
+        name: 'registration',
         component: Registration
     },
     {

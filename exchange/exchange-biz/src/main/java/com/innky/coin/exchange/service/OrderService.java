@@ -19,6 +19,7 @@ package com.innky.coin.exchange.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.innky.coin.exchange.entity.Order;
+import com.innky.coin.exchange.vo.OrderVO;
 
 /**
  * 委托订单表
@@ -28,4 +29,12 @@ import com.innky.coin.exchange.entity.Order;
  */
 public interface OrderService extends IService<Order> {
 
+	/**
+	 * 创建委托订单
+	 *
+	 * @param order  订单
+	 * @param userId 用户id
+	 * @return boolean
+	 */
+	boolean createOrder(Long userId, OrderVO order);
 }

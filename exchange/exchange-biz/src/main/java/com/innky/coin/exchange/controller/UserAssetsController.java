@@ -21,8 +21,10 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.innky.coin.common.core.util.R;
 import com.innky.coin.common.log.annotation.SysLog;
+import com.innky.coin.common.security.util.SecurityUtils;
 import com.innky.coin.exchange.entity.UserAssets;
 import com.innky.coin.exchange.service.UserAssetsService;
+import com.innky.coin.exchange.vo.ChargeVO;
 import org.springframework.security.access.prepost.PreAuthorize;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -30,6 +32,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
 
 /**
  * 用户资产
@@ -110,4 +114,28 @@ public class UserAssetsController {
 		return R.ok(userAssetsService.removeById(id));
 	}
 
+
+	/**
+	 * 通过Symbol获取可用资产
+	 *
+	 * @param symbol 交易对符号
+	 * @return {@link R}
+	 */
+	@GetMapping("/available")
+	public R getAvailableAssetsBySymbol(String symbol){
+		Long userId = SecurityUtils.getUser().getId();
+		return R.ok(userAssetsService.getAvailableAssetsBySymbol(userId, symbol));
+	}
+
+	/**
+	 * 用户充值
+	 *
+	 * @return {@link R}
+	 */
+	@PostMapping("/charge")
+	public R userCharge(@RequestBody ChargeVO chargeVO){
+		Long userId = SecurityUtils.getUser().getId();
+		boolean data = userAssetsService.userCharge(userId, chargeVO.getCoinId(), chargeVO.getQuantity());
+		return R.ok(data);
+	}
 }

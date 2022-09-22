@@ -20,6 +20,8 @@ package com.innky.coin.exchange.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.innky.coin.exchange.entity.UserAssets;
 
+import java.math.BigDecimal;
+
 /**
  * 用户资产
  *
@@ -28,4 +30,14 @@ import com.innky.coin.exchange.entity.UserAssets;
  */
 public interface UserAssetsService extends IService<UserAssets> {
 
+	/**
+	 * 通过Symbol获取可用资产
+	 *
+	 * @param userId 用户id
+	 * @param symbol 交易对
+	 * @return {@link BigDecimal}
+	 */
+	BigDecimal getAvailableAssetsBySymbol(Long userId, String symbol);
+
+    boolean userCharge(Long userId, Long coinId, BigDecimal quantity);
 }

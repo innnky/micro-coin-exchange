@@ -16,7 +16,7 @@ Vue.config.productionTip = false
 Vue.prototype.$http = axios
 
 Vue.use(ElementUI)
-//
+
 router.beforeEach((to, from, next)=>{
   store.commit('getToken')
   const token = store.state.user.token
@@ -26,6 +26,8 @@ router.beforeEach((to, from, next)=>{
     next()
   }
 })
+
+
 new Vue({
   store,
   router,

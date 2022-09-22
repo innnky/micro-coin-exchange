@@ -33,7 +33,7 @@ import java.math.BigDecimal;
  * @date 2022-09-16 15:30:21
  */
 @Data
-@TableName("order")
+@TableName("`order`")
 @EqualsAndHashCode(callSuper = true)
 @Schema(description = "委托订单表")
 public class Order extends BaseEntity {
@@ -87,4 +87,9 @@ public class Order extends BaseEntity {
 	@Schema(description = "委托单状态")
 	private Integer orderStatus;
 
+	/**
+	 * 已成交数量
+	 */
+	@Schema(description = "已成交数量")
+	private BigDecimal volume;
 }

@@ -28,4 +28,11 @@ import com.innky.coin.exchange.entity.Market;
  */
 public interface MarketService extends IService<Market> {
 
+	/**
+	 * 保存交易对信息
+	 *
+	 * @param market 市场
+	 * @return boolean
+	 */
+	boolean saveMarket(Market market);
 }
