@@ -37,4 +37,5 @@ public interface ServiceNameConstants {
 	 */
 	String USER_SERVICE = "user-biz";
 
+	String EXCHANGE_SERVICE = "exchange-biz";
 }

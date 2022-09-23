@@ -92,4 +92,5 @@ public class Order extends BaseEntity {
 	 */
 	@Schema(description = "已成交数量")
 	private BigDecimal volume;
+
 }

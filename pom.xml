@@ -102,6 +102,7 @@
         <module>coin-visual</module>
 		<module>exchange</module>
 		<module>user</module>
+		<module>match</module>
     </modules>
 
     <dependencyManagement>

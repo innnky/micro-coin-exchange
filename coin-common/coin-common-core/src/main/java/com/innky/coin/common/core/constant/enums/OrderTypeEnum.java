@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum OrderTypeEnum {
+
 	/**
 	 * 限价单
 	 */
@@ -18,7 +19,8 @@ public enum OrderTypeEnum {
 	/**
 	 * 市价单
 	 */
-	MARKET(1,"market");
+	MARKET(1, "market");
+
 	/**
 	 * 编码
 	 */
@@ -28,4 +30,5 @@ public enum OrderTypeEnum {
 	 * 值
 	 */
 	private final String value;
+
 }

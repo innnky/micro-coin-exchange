@@ -19,10 +19,15 @@ package com.innky.coin.exchange.controller;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.innky.coin.common.core.constant.SecurityConstants;
 import com.innky.coin.common.core.util.R;
 import com.innky.coin.common.log.annotation.SysLog;
+import com.innky.coin.common.security.annotation.Inner;
+import com.innky.coin.exchange.dto.MarketDto;
+import com.innky.coin.exchange.dto.OrderDto;
 import com.innky.coin.exchange.entity.Market;
 import com.innky.coin.exchange.service.MarketService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -31,6 +36,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+//TODO 修改前端 增加市价属性
 /**
  * 交易对表
  *
@@ -54,7 +62,7 @@ public class MarketController {
 	 */
 	@Operation(summary = "分页查询", description = "分页查询")
 	@GetMapping("/page")
-//	@PreAuthorize("@pms.hasPermission('exchange_market_get')")
+	// @PreAuthorize("@pms.hasPermission('exchange_market_get')")
 	public R getMarketPage(Page page, Market market) {
 		return R.ok(marketService.page(page, Wrappers.query(market)));
 	}
@@ -111,5 +119,19 @@ public class MarketController {
 		return R.ok(marketService.removeById(id));
 	}
 
+	/**
+	 * 得到所有市场
+	 *
+	 * @return {@link R}<{@link List}<{@link MarketDto}>>
+	 */
+	@GetMapping("/all")
+	@Inner
+	R<List<MarketDto>> getAllMarkets(){
+		return R.ok(marketService.list().stream().map(market -> {
+			MarketDto marketDto = new MarketDto();
+			BeanUtils.copyProperties(market,marketDto);
+			return marketDto;
+		}).collect(Collectors.toList()));
+	}
 
 }

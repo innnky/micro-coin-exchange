@@ -45,20 +45,24 @@ public class UserAssetsServiceImpl extends ServiceImpl<UserAssetsMapper, UserAss
 	private final UserAssetsHistoryService userAssetsHistoryService;
 
 	@Override
-	public BigDecimal getAvailableAssetsBySymbol(Long userId, String symbol) {
-		//TODO 修改返回值为UserAssetsVO 存入币种信息
-		//TODO 添加缓存 优化性能
+	public UserAssets getAvailableAssetsBySymbol(Long userId, String symbol) {
+		// TODO 添加缓存 优化性能
 		Market market = marketService.getOne(new LambdaQueryWrapper<Market>().eq(Market::getSymbol, symbol));
-		if (market == null){
+		if (market == null) {
 			throw new RuntimeException("没有这个交易对");
 		}
 		Long coinId = market.getBuyCoinId();
-		LambdaQueryWrapper<UserAssets> query = new LambdaQueryWrapper<UserAssets>().eq(UserAssets::getUserId, userId).eq(UserAssets::getCoinId, coinId);
+		LambdaQueryWrapper<UserAssets> query = new LambdaQueryWrapper<UserAssets>().eq(UserAssets::getUserId, userId)
+				.eq(UserAssets::getCoinId, coinId);
 		UserAssets userAssets = getOne(query);
-		if (userAssets == null){
-			return BigDecimal.ZERO;
+		if (userAssets == null) {
+			UserAssets assets = new UserAssets();
+			assets.setUserId(userId);
+			assets.setAmount(BigDecimal.ZERO);
+			assets.setCoinId(coinId);
+			return assets;
 		}
-		return userAssets.getAmount();
+		return userAssets;
 	}
 
 	@Override
@@ -66,7 +70,7 @@ public class UserAssetsServiceImpl extends ServiceImpl<UserAssetsMapper, UserAss
 		UserAssets asset = this.getOne(new LambdaQueryWrapper<UserAssets>().eq(UserAssets::getUserId, userId)
 				.eq(UserAssets::getCoinId, coinId));
 		boolean result;
-		if (asset == null){
+		if (asset == null) {
 			asset = new UserAssets();
 			asset.setUserId(userId);
 			asset.setCoinId(coinId);
@@ -77,10 +81,11 @@ public class UserAssetsServiceImpl extends ServiceImpl<UserAssetsMapper, UserAss
 			asset.setAmount(asset.getAmount().add(quantity));
 			result = this.updateById(asset);
 		}
-		//TODO 保存用户资产历史 修正历史表结构
+		// TODO 保存用户资产历史 修正历史表结构
 		UserAssetsHistory history = new UserAssetsHistory();
-//		history.set
-//		userAssetsHistoryService.save()
+		// history.set
+		// userAssetsHistoryService.save()
 		return result;
 	}
+
 }

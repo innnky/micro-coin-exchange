@@ -135,7 +135,7 @@ public class UserController {
 	}
 
 	@GetMapping("/info")
-	R<User> info(){
+	R<User> info() {
 		User user = new User();
 
 		CoinUser coinUser = SecurityUtils.getUser();

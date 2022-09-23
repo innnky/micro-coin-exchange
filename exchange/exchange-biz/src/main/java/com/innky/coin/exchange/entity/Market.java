@@ -69,4 +69,10 @@ public class Market extends BaseEntity {
 	@Schema(description = "开盘价")
 	private BigDecimal openPrice;
 
+	/**
+	 * 市价
+	 */
+	@Schema(description = "市价")
+	private BigDecimal marketPrice;
+
 }

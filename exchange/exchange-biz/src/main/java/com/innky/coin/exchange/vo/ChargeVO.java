@@ -10,6 +10,9 @@ import java.math.BigDecimal;
  */
 @Data
 public class ChargeVO {
+
 	private Long coinId;
+
 	private BigDecimal quantity;
+
 }

@@ -32,12 +32,12 @@ public interface UserAssetsService extends IService<UserAssets> {
 
 	/**
 	 * 通过Symbol获取可用资产
-	 *
 	 * @param userId 用户id
 	 * @param symbol 交易对
 	 * @return {@link BigDecimal}
 	 */
-	BigDecimal getAvailableAssetsBySymbol(Long userId, String symbol);
+	UserAssets getAvailableAssetsBySymbol(Long userId, String symbol);
 
-    boolean userCharge(Long userId, Long coinId, BigDecimal quantity);
+	boolean userCharge(Long userId, Long coinId, BigDecimal quantity);
+
 }

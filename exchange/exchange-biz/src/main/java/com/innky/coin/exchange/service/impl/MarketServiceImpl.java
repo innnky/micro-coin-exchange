@@ -44,11 +44,12 @@ public class MarketServiceImpl extends ServiceImpl<MarketMapper, Market> impleme
 	public boolean saveMarket(Market market) {
 		Coin sellCoin = coinService.getById(market.getSellCoinId());
 		Coin buyCoin = coinService.getById(market.getBuyCoinId());
-		if (sellCoin == null || buyCoin == null){
+		if (sellCoin == null || buyCoin == null) {
 			throw new InsertException("交易对币种不存在");
 		}
 		String symbol = sellCoin.getCoinName() + buyCoin.getCoinName();
 		market.setSymbol(symbol);
 		return save(market);
 	}
+
 }

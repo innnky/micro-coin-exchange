@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum OrderSideEnum {
+
 	/**
 	 * 买
 	 */
@@ -29,17 +30,16 @@ public enum OrderSideEnum {
 	 */
 	private final String value;
 
-	public static OrderSideEnum get(String description){
-		if(SELL.getValue().equals(description)){
+	public static OrderSideEnum get(String description) {
+		if (SELL.getValue().equals(description)) {
 			return SELL;
 		}
-		else if(BUY.getValue().equals(description)) {
+		else if (BUY.getValue().equals(description)) {
 			return BUY;
 		}
 		else {
 			throw new RuntimeException("交易方向不合法");
 		}
 	}
-
 
 }

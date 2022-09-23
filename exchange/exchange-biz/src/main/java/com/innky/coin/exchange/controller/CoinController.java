@@ -54,7 +54,7 @@ public class CoinController {
 	 */
 	@Operation(summary = "分页查询", description = "分页查询")
 	@GetMapping("/page")
-//	@PreAuthorize("@pms.hasPermission('exchange_coin_get')")
+	// @PreAuthorize("@pms.hasPermission('exchange_coin_get')")
 	public R getCoinPage(Page page, Coin coin) {
 		return R.ok(coinService.page(page, Wrappers.query(coin)));
 	}

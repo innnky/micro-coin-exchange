@@ -114,28 +114,26 @@ public class UserAssetsController {
 		return R.ok(userAssetsService.removeById(id));
 	}
 
-
 	/**
 	 * 通过Symbol获取可用资产
-	 *
 	 * @param symbol 交易对符号
 	 * @return {@link R}
 	 */
 	@GetMapping("/available")
-	public R getAvailableAssetsBySymbol(String symbol){
+	public R getAvailableAssetsBySymbol(String symbol) {
 		Long userId = SecurityUtils.getUser().getId();
-		return R.ok(userAssetsService.getAvailableAssetsBySymbol(userId, symbol));
+		return R.ok(userAssetsService.getAvailableAssetsBySymbol(userId, symbol).getAmount());
 	}
 
 	/**
 	 * 用户充值
-	 *
 	 * @return {@link R}
 	 */
 	@PostMapping("/charge")
-	public R userCharge(@RequestBody ChargeVO chargeVO){
+	public R userCharge(@RequestBody ChargeVO chargeVO) {
 		Long userId = SecurityUtils.getUser().getId();
 		boolean data = userAssetsService.userCharge(userId, chargeVO.getCoinId(), chargeVO.getQuantity());
 		return R.ok(data);
 	}
+
 }

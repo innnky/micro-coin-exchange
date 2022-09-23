@@ -46,9 +46,8 @@ public class CoinPortalUserDetailsServiceImpl implements CoinUserDetailsService 
 
 	private UserDetails getPortalUserDetails(R<PortalUserInfo> result) {
 		PortalUserInfo userInfo = RetOps.of(result).getData().orElseThrow(() -> new UsernameNotFoundException("用户不存在"));
-		return new CoinUser(userInfo.getId(), null, userInfo.getUsername(), userInfo.getPassword(),
-				null, true, true, true, true,
-				AuthorityUtils.NO_AUTHORITIES);
+		return new CoinUser(userInfo.getId(), null, userInfo.getUsername(), userInfo.getPassword(), null, true, true,
+				true, true, AuthorityUtils.NO_AUTHORITIES);
 	}
 
 	@Override
