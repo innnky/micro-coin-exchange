@@ -60,7 +60,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
 		}
 		else if (OrderTypeEnum.LIMIT.getValue().equals(order.getType())) {
-			UserAssets assets = userAssetsService.getAvailableAssetsBySymbol(userId, order.getSymbol());
+			UserAssets assets = userAssetsService.getAvailableAssetsBySymbol(userId, order.getSymbol(), OrderSideEnum.of(order.getSide()));
 			if (assets.getAmount().compareTo(order.getQuantity().multiply(order.getPrice())) < 0) {
 				throw new RuntimeException("余额不足");
 			}
@@ -71,16 +71,20 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 			// userAssetsService.deductAssets(userId, )
 
 		}
-		newOrder.setSide(OrderSideEnum.get(order.getSide()).getCode());
+
+		newOrder.setSide(OrderSideEnum.of(order.getSide()).getCode());
 		newOrder.setUserId(userId);
 		newOrder.setOrderStatus(OrderStatusEnum.OPEN.getCode());
 		newOrder.setSymbol(order.getSymbol());
 		newOrder.setQuantity(order.getQuantity());
 		newOrder.setVolume(BigDecimal.ZERO);
+		boolean save = this.save(newOrder);
 		// 将订单放入消息队列
+		OrderDto rabbitOrder = new OrderDto();
+		BeanUtils.copyProperties(newOrder,rabbitOrder);
 		rabbitTemplate.convertAndSend(RabbitMQConstants.MICRO_TRADING_EXCHANGE, RabbitMQConstants.ORDERS_QUEUE,
-				newOrder);
-		return this.save(newOrder);
+				rabbitOrder);
+		return save;
 	}
 
 	@Override

@@ -124,6 +124,7 @@ public class OrderController {
 	 */
 	@PostMapping("/new")
 	public R createOrder(@RequestBody OrderVO order) {
+		//TODO 买卖余额计算逻辑错误
 		return R.ok(orderService.createOrder(SecurityUtils.getUser().getId(), order));
 	}
 

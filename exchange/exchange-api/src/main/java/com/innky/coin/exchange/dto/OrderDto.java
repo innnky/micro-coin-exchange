@@ -34,9 +34,8 @@ import java.math.BigDecimal;
  */
 @Data
 @TableName("`order`")
-@EqualsAndHashCode(callSuper = true)
 @Schema(description = "委托订单表")
-public class OrderDto extends BaseEntity {
+public class OrderDto{
 
 	/**
 	 * id

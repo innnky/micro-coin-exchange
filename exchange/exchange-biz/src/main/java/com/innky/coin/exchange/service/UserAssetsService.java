@@ -18,6 +18,7 @@
 package com.innky.coin.exchange.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.innky.coin.common.core.constant.enums.OrderSideEnum;
 import com.innky.coin.exchange.entity.UserAssets;
 
 import java.math.BigDecimal;
@@ -36,7 +37,7 @@ public interface UserAssetsService extends IService<UserAssets> {
 	 * @param symbol 交易对
 	 * @return {@link BigDecimal}
 	 */
-	UserAssets getAvailableAssetsBySymbol(Long userId, String symbol);
+	UserAssets getAvailableAssetsBySymbol(Long userId, String symbol, OrderSideEnum side);
 
 	boolean userCharge(Long userId, Long coinId, BigDecimal quantity);
 

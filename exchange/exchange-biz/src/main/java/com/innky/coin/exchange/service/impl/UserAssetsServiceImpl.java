@@ -18,6 +18,7 @@ package com.innky.coin.exchange.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.innky.coin.common.core.constant.enums.OrderSideEnum;
 import com.innky.coin.exchange.entity.Market;
 import com.innky.coin.exchange.entity.UserAssets;
 import com.innky.coin.exchange.entity.UserAssetsHistory;
@@ -45,13 +46,24 @@ public class UserAssetsServiceImpl extends ServiceImpl<UserAssetsMapper, UserAss
 	private final UserAssetsHistoryService userAssetsHistoryService;
 
 	@Override
-	public UserAssets getAvailableAssetsBySymbol(Long userId, String symbol) {
+	public UserAssets getAvailableAssetsBySymbol(Long userId, String symbol, OrderSideEnum side) {
 		// TODO 添加缓存 优化性能
 		Market market = marketService.getOne(new LambdaQueryWrapper<Market>().eq(Market::getSymbol, symbol));
 		if (market == null) {
 			throw new RuntimeException("没有这个交易对");
 		}
-		Long coinId = market.getBuyCoinId();
+		Long coinId;
+		switch (side){
+			case BUY:
+				coinId = market.getBuyCoinId();
+				break;
+			case SELL:
+				coinId = market.getSellCoinId();
+				break;
+			default:
+				coinId = null;
+		}
+
 		LambdaQueryWrapper<UserAssets> query = new LambdaQueryWrapper<UserAssets>().eq(UserAssets::getUserId, userId)
 				.eq(UserAssets::getCoinId, coinId);
 		UserAssets userAssets = getOne(query);

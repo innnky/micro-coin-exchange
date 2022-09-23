@@ -30,11 +30,11 @@ public enum OrderSideEnum {
 	 */
 	private final String value;
 
-	public static OrderSideEnum get(String description) {
-		if (SELL.getValue().equals(description)) {
+	public static OrderSideEnum of(String value) {
+		if (SELL.getValue().equals(value)) {
 			return SELL;
 		}
-		else if (BUY.getValue().equals(description)) {
+		else if (BUY.getValue().equals(value)) {
 			return BUY;
 		}
 		else {

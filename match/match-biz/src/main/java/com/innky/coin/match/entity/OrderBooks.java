@@ -1,6 +1,7 @@
 package com.innky.coin.match.entity;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -8,7 +9,7 @@ import java.util.Map;
  * @date 2022/9/23 11:41
  */
 public class OrderBooks {
-	Map<String, OrderBook> orderBookMap;
+	Map<String, OrderBook> orderBookMap = new HashMap<>();
 	public void createOrderBook(String symbol, BigDecimal marketPrice){
 		OrderBook orderbook = new OrderBook(symbol);
 		orderbook.setMarketPrice(marketPrice);

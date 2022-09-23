@@ -19,6 +19,7 @@ package com.innky.coin.exchange.controller;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.innky.coin.common.core.constant.enums.OrderSideEnum;
 import com.innky.coin.common.core.util.R;
 import com.innky.coin.common.log.annotation.SysLog;
 import com.innky.coin.common.security.util.SecurityUtils;
@@ -122,7 +123,8 @@ public class UserAssetsController {
 	@GetMapping("/available")
 	public R getAvailableAssetsBySymbol(String symbol) {
 		Long userId = SecurityUtils.getUser().getId();
-		return R.ok(userAssetsService.getAvailableAssetsBySymbol(userId, symbol).getAmount());
+		//TODO 根据方向获取余额
+		return R.ok(userAssetsService.getAvailableAssetsBySymbol(userId, symbol, OrderSideEnum.BUY).getAmount());
 	}
 
 	/**
