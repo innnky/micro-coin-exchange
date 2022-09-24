@@ -20,6 +20,11 @@ public class RabbitConfig {
 	}
 
 	@Bean
+	Queue turnoverOrderQueue() {
+		return new Queue(RabbitMQConstants.TURNOVER_QUEUE, true);
+	}
+
+	@Bean
 	Exchange microTradingExchange() {
 		return new DirectExchange(RabbitMQConstants.MICRO_TRADING_EXCHANGE);
 	}
@@ -28,7 +33,12 @@ public class RabbitConfig {
 	Binding orderBinding() {
 		return BindingBuilder.bind(orderQueue()).to(microTradingExchange()).with(RabbitMQConstants.ORDERS_QUEUE)
 				.noargs();
+	}
 
+	@Bean
+	Binding turnoverOrderBinding() {
+		return BindingBuilder.bind(turnoverOrderQueue()).to(microTradingExchange()).with(RabbitMQConstants.TURNOVER_QUEUE)
+				.noargs();
 	}
 
 	@Bean

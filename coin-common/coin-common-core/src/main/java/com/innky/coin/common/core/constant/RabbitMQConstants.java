@@ -13,4 +13,5 @@ public interface RabbitMQConstants {
 
 	String MICRO_TRADING_EXCHANGE = "microTradingExchange";
 
+	String TURNOVER_QUEUE = "turnoverQueue";
 }

@@ -27,8 +27,8 @@ public class OrderHandler {
 
 	public void processOrder(OrderDto orderDto){
 		Order order = new Order();
-		OrderBook orderBook = orderBooks.getOrderBook(order.getSymbol());
 		BeanUtils.copyProperties(orderDto, order);
+		OrderBook orderBook = orderBooks.getOrderBook(order.getSymbol());
 
 		// 从Spring容器中获取所有的撮合服务
 		Map<String, MatchService> matchServiceMap = SpringUtil

@@ -19,6 +19,7 @@ package com.innky.coin.match.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.innky.coin.common.core.constant.enums.OrderStatusEnum;
 import com.innky.coin.common.mybatis.base.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -90,7 +91,21 @@ public class Order extends BaseEntity {
 	/**
 	 * 已成交数量
 	 */
-	@Schema(description = "已成交数量")
 	private BigDecimal volume;
+
+	public BigDecimal getVolumeLeft(){
+		return quantity.subtract(volume);
+	}
+
+	public void completeVolume(BigDecimal quantity) {
+		this.volume = this.volume.add(quantity);
+		if (this.volume .compareTo( this.quantity)>0){
+			throw new RuntimeException("委托单成交数量大于委托数量");
+		}
+	}
+	public void close(){
+		this.volume = this.quantity;
+		this.orderStatus = OrderStatusEnum.CLOSED.getCode();
+	}
 
 }

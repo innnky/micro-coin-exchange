@@ -41,5 +41,27 @@ public enum OrderSideEnum {
 			throw new RuntimeException("交易方向不合法");
 		}
 	}
+	public static OrderSideEnum of(Integer code) {
+		if (SELL.getCode().equals(code)) {
+			return SELL;
+		}
+		else if (BUY.getCode().equals(code)) {
+			return BUY;
+		}
+		else {
+			throw new RuntimeException("交易方向不合法");
+		}
+	}
+
+	public OrderSideEnum getOpposite(){
+		switch (this){
+			case BUY:
+				return SELL;
+			case SELL:
+				return BUY;
+			default:
+				throw new RuntimeException("交易方向不合法");
+		}
+	}
 
 }
