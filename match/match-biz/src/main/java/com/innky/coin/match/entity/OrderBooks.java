@@ -10,12 +10,16 @@ import java.util.Map;
  */
 public class OrderBooks {
 	Map<String, OrderBook> orderBookMap = new HashMap<>();
-	public void createOrderBook(String symbol, BigDecimal marketPrice){
-		OrderBook orderbook = new OrderBook(symbol);
+	public void createOrderBook(String symbol, BigDecimal marketPrice,Integer plateMaxDepth){
+		OrderBook orderbook = new OrderBook(symbol, plateMaxDepth);
 		orderbook.setMarketPrice(marketPrice);
 		orderBookMap.put(symbol, orderbook);
 	}
 	public OrderBook getOrderBook(String symbol){
 		return orderBookMap.get(symbol);
+	}
+
+	public Map<String, OrderBook> getOrderBookMap() {
+		return orderBookMap;
 	}
 }

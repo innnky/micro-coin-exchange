@@ -1,13 +1,10 @@
 package com.innky.coin.match.entity;
 
 import com.innky.coin.common.core.constant.enums.OrderSideEnum;
-import com.innky.coin.exchange.dto.OrderDto;
 import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.TreeMap;
 
 /**
@@ -21,14 +18,12 @@ public class OrderBook {
 
 	private String symbol;
 	private BigDecimal marketPrice;
-	private TradePlate buyPlate;
-	private TradePlate sellPlate;
+	private TradePlate plate;
 
-	public OrderBook(String symbol) {
+	public OrderBook(String symbol, Integer plateMaxDepth) {
 		sellOrders = new TreeMap<>(Comparator.naturalOrder());
-
 		buyOrders = new TreeMap<>(Comparator.reverseOrder());
-
+		plate = new TradePlate(plateMaxDepth, symbol);
 		this.symbol = symbol;
 		this.marketPrice = BigDecimal.ZERO;
 	}
@@ -64,5 +59,13 @@ public class OrderBook {
 
 	public TreeMap<BigDecimal, Orders> getOppositeOrdersMap(OrderSideEnum orderSide) {
 		return getOrdersMap(orderSide.getOpposite());
+	}
+
+	public void addPlateItem(BigDecimal price, BigDecimal quantity, OrderSideEnum orderSide) {
+		plate.addItem(price, quantity, orderSide);
+	}
+
+	public void delPlateItem(BigDecimal price, BigDecimal quantity, OrderSideEnum orderSide) {
+		plate.delItem(price, quantity, orderSide);
 	}
 }

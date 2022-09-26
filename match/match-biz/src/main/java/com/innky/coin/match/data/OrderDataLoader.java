@@ -13,6 +13,7 @@ import com.innky.coin.match.entity.OrderBooks;
 import com.innky.coin.match.handler.OrderHandler;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -36,6 +37,8 @@ public class OrderDataLoader implements CommandLineRunner {
 
 	public boolean orderBooksInitialized = false;
 	public Set<Long> initialOrderIds = new HashSet<>();
+	@Value("${match-engine.plate-max-depth}")
+	private Integer plateMaxDepth;
 
 	public OrderDataLoader(RemoteOrderService remoteOrderService, RemoteMarketService remoteMarketService, OrderBooks orderBooks, OrderHandler orderHandler) {
 		this.remoteOrderService = remoteOrderService;
@@ -52,7 +55,7 @@ public class OrderDataLoader implements CommandLineRunner {
 		List<MarketDto> marketDtos = RetOps.of(allMarkets).getData().orElseThrow(RuntimeException::new);
 
 		for (MarketDto marketDto : marketDtos) {
-			orderBooks.createOrderBook(marketDto.getSymbol(), marketDto.getMarketPrice());
+			orderBooks.createOrderBook(marketDto.getSymbol(), marketDto.getMarketPrice(), plateMaxDepth);
 		}
 
 		for (OrderDto orderDto : orderDtos) {

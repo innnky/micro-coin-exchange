@@ -74,7 +74,7 @@ public class LimitMatchServiceImpl implements MatchService {
 					order.close();
 					TurnoverOrder turnoverOrder = new TurnoverOrder(order.getSymbol(),price, order.getVolumeLeft(),
 							order, oppositeOrder, orderSide);
-					completeOrder(turnoverOrder,orderBook);
+					completeOrder(turnoverOrder,orderBook, orderSide);
 					return;
 				}
 				else if (oppositeOrder.getVolumeLeft().compareTo(order.getVolumeLeft())==0){
@@ -83,7 +83,7 @@ public class LimitMatchServiceImpl implements MatchService {
 					oppositeOrder.close();
 					TurnoverOrder turnoverOrder = new TurnoverOrder(order.getSymbol(),price, order.getVolumeLeft(),
 							order, oppositeOrder, orderSide);
-					completeOrder(turnoverOrder,orderBook);
+					completeOrder(turnoverOrder,orderBook, orderSide);
 					orderIterator.remove();
 					// 当前价格委托全部完成 移除Map中此项
 					if (!orderIterator.hasNext()){
@@ -97,7 +97,7 @@ public class LimitMatchServiceImpl implements MatchService {
 					oppositeOrder.close();
 					TurnoverOrder turnoverOrder = new TurnoverOrder(order.getSymbol(),price, oppositeOrder.getVolumeLeft(),
 							order, oppositeOrder, orderSide);
-					completeOrder(turnoverOrder,orderBook);
+					completeOrder(turnoverOrder,orderBook, orderSide);
 					orderIterator.remove();
 				}
 			}
@@ -118,11 +118,13 @@ public class LimitMatchServiceImpl implements MatchService {
 			orders.addOrder(order);
 			ordersMap.put(order.getPrice(), orders);
 		}
+		orderBook.addPlateItem(order.getPrice(),order.getVolumeLeft(), orderSide);
 	}
 
-	public void completeOrder(TurnoverOrder turnoverOrder, OrderBook orderBook){
+	public void completeOrder(TurnoverOrder turnoverOrder, OrderBook orderBook, OrderSideEnum orderSide){
 		rabbitTemplate.convertAndSend(RabbitMQConstants.TURNOVER_QUEUE, turnoverOrder.toDto());
 		orderBook.setMarketPrice(turnoverOrder.getPrice());
+		orderBook.delPlateItem(turnoverOrder.getPrice(), turnoverOrder.getQuantity(),orderSide);
 
 	}
 

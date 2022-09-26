@@ -1,5 +1,5 @@
 server:
-  port: 7003
+  port: 7001
 
 spring:
   application:
@@ -18,13 +18,17 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: "000508"
-    url: jdbc:mysql://coin-mysql:3306/coin_exchange?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+    password: root
+    url: jdbc:mysql://coin-mysql:3306/coin_demo?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+  redis:
+    host: localhost
+    port: 6379
   rabbitmq:
     host: localhost
     port: 5672
     username: guest
     password: guest
+
 # spring security 配置
 security:
   oauth2:
@@ -32,6 +36,3 @@ security:
       client-id: pig
       client-secret: pig
       scope: server
-
-match-engine:
-  plate-max-depth: 20

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.innky</groupId>
+		<artifactId>coin</artifactId>
+		<version>3.5.2</version>
+	</parent>
+
+	<artifactId>information</artifactId>
+	<packaging>pom</packaging>
+
+	<!--项目子模块-->
+	<modules>
+		<module>information-api</module>
+		<module>information-biz</module>
+	</modules>
+
+</project>

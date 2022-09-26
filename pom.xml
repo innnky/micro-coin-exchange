@@ -103,6 +103,7 @@
 		<module>exchange</module>
 		<module>user</module>
 		<module>match</module>
+		<module>information</module>
     </modules>
 
     <dependencyManagement>
