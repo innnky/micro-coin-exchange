@@ -68,20 +68,22 @@ public class LimitMatchServiceImpl implements MatchService {
 
 			while (orderIterator.hasNext()) {
 				Order oppositeOrder = orderIterator.next();
-				if (oppositeOrder.getVolumeLeft().compareTo(order.getVolumeLeft()) > 0) {
+				BigDecimal oppoVolumeLeft = oppositeOrder.getVolumeLeft();
+				BigDecimal currentVolumeLeft = order.getVolumeLeft();
+				if (oppoVolumeLeft.compareTo(currentVolumeLeft) > 0) {
 					//当前委托完成
-					oppositeOrder.completeVolume(order.getVolumeLeft());
+					oppositeOrder.completeVolume(currentVolumeLeft);
 					order.close();
-					TurnoverOrder turnoverOrder = new TurnoverOrder(order.getSymbol(),price, order.getVolumeLeft(),
+					TurnoverOrder turnoverOrder = new TurnoverOrder(order.getSymbol(),price, currentVolumeLeft,
 							order, oppositeOrder, orderSide);
 					completeOrder(turnoverOrder,orderBook, orderSide);
 					return;
 				}
-				else if (oppositeOrder.getVolumeLeft().compareTo(order.getVolumeLeft())==0){
+				else if (oppoVolumeLeft.compareTo(currentVolumeLeft)==0){
 					//两个委托都完成
 					order.close();
 					oppositeOrder.close();
-					TurnoverOrder turnoverOrder = new TurnoverOrder(order.getSymbol(),price, order.getVolumeLeft(),
+					TurnoverOrder turnoverOrder = new TurnoverOrder(order.getSymbol(),price, currentVolumeLeft,
 							order, oppositeOrder, orderSide);
 					completeOrder(turnoverOrder,orderBook, orderSide);
 					orderIterator.remove();
@@ -93,9 +95,9 @@ public class LimitMatchServiceImpl implements MatchService {
 				}
 				else {
 					//对手委托完成
-					order.completeVolume(oppositeOrder.getVolumeLeft());
 					oppositeOrder.close();
-					TurnoverOrder turnoverOrder = new TurnoverOrder(order.getSymbol(),price, oppositeOrder.getVolumeLeft(),
+					order.completeVolume(oppoVolumeLeft);
+					TurnoverOrder turnoverOrder = new TurnoverOrder(order.getSymbol(),price, oppoVolumeLeft,
 							order, oppositeOrder, orderSide);
 					completeOrder(turnoverOrder,orderBook, orderSide);
 					orderIterator.remove();
@@ -122,9 +124,9 @@ public class LimitMatchServiceImpl implements MatchService {
 	}
 
 	public void completeOrder(TurnoverOrder turnoverOrder, OrderBook orderBook, OrderSideEnum orderSide){
-		rabbitTemplate.convertAndSend(RabbitMQConstants.TURNOVER_QUEUE, turnoverOrder.toDto());
+		rabbitTemplate.convertAndSend(RabbitMQConstants.MICRO_TRADING_EXCHANGE, RabbitMQConstants.TURNOVER_KEY, turnoverOrder.toDto());
 		orderBook.setMarketPrice(turnoverOrder.getPrice());
-		orderBook.delPlateItem(turnoverOrder.getPrice(), turnoverOrder.getQuantity(),orderSide);
+		orderBook.delPlateItem(turnoverOrder.getPrice(), turnoverOrder.getQuantity(),orderSide.getOpposite());
 
 	}
 

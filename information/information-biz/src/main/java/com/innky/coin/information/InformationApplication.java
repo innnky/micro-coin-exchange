@@ -6,6 +6,7 @@ import com.innky.coin.common.swagger.annotation.EnableCoinDoc;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
 * @author pig archetype
@@ -17,6 +18,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @EnableCoinResourceServer
 @EnableDiscoveryClient
 @SpringBootApplication
+@EnableScheduling
 public class InformationApplication {
 
     public static void main(String[] args) {

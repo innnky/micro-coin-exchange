@@ -1,5 +1,5 @@
 server:
-  port: 7001
+  port: 7004
 
 spring:
   application:
@@ -14,12 +14,6 @@ spring:
     import:
       - nacos:application-@profiles.active@.yml
       - nacos:${spring.application.name}-@profiles.active@.yml
-  datasource:  # 示例数据源配置，注意修改
-    type: com.zaxxer.hikari.HikariDataSource
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: root
-    url: jdbc:mysql://coin-mysql:3306/coin_demo?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
   redis:
     host: localhost
     port: 6379
@@ -36,3 +30,6 @@ security:
       client-id: pig
       client-secret: pig
       scope: server
+
+information:
+  kline-max-len: 100

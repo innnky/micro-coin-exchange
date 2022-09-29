@@ -16,7 +16,11 @@ public class OrderBooks {
 		orderBookMap.put(symbol, orderbook);
 	}
 	public OrderBook getOrderBook(String symbol){
-		return orderBookMap.get(symbol);
+		OrderBook orderBook = orderBookMap.get(symbol);
+		if (orderBook == null){
+			throw new RuntimeException("没有这个交易对!");
+		}
+		return orderBook;
 	}
 
 	public Map<String, OrderBook> getOrderBookMap() {

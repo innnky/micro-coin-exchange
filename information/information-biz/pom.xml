@@ -23,15 +23,6 @@
             <artifactId>information-api</artifactId>
             <version>3.5.2</version>
         </dependency>
-        <!--选配: orm 模块-->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
         <!--必备：安全模块-->
         <dependency>
             <groupId>com.innky</groupId>
@@ -80,9 +71,14 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
+        <dependency>
+            <groupId>com.innky</groupId>
+            <artifactId>exchange-api</artifactId>
+            <version>3.5.2</version>
+        </dependency>
 
 
-	</dependencies>
+    </dependencies>
 
     <build>
         <plugins>

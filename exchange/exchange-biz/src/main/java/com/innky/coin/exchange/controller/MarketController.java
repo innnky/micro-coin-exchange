@@ -19,6 +19,7 @@ package com.innky.coin.exchange.controller;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.innky.coin.common.core.constant.CacheConstants;
 import com.innky.coin.common.core.constant.SecurityConstants;
 import com.innky.coin.common.core.util.R;
 import com.innky.coin.common.log.annotation.SysLog;
@@ -27,7 +28,10 @@ import com.innky.coin.exchange.dto.MarketDto;
 import com.innky.coin.exchange.dto.OrderDto;
 import com.innky.coin.exchange.entity.Market;
 import com.innky.coin.exchange.service.MarketService;
+import com.innky.coin.information.dto.KlineItemDto;
+import com.innky.coin.match.dto.TradePlateDto;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -36,6 +40,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 //TODO 修改前端 增加市价属性
@@ -53,6 +58,7 @@ import java.util.stream.Collectors;
 public class MarketController {
 
 	private final MarketService marketService;
+	private final RedisTemplate<String, Object> redisTemplate;
 
 	/**
 	 * 分页查询
@@ -133,5 +139,49 @@ public class MarketController {
 			return marketDto;
 		}).collect(Collectors.toList()));
 	}
+
+	/**
+	 * 获取市场价格
+	 *
+	 * @return {@link R}
+	 */
+	@GetMapping("/{symbol}/marketprice")
+	public R<BigDecimal> getMarketPrice(@PathVariable String symbol){
+		BigDecimal price = (BigDecimal) redisTemplate.opsForValue().get(CacheConstants.MARKET_PRICE_KEY + symbol);
+		return R.ok(price);
+	}
+	/**
+	 * 获取深度数据
+	 *
+	 * @return {@link R}
+	 */
+	@GetMapping("/{symbol}/depth")
+	public R<TradePlateDto> getDepth(@PathVariable String symbol){
+		TradePlateDto tradePlateDto = (TradePlateDto) redisTemplate.opsForValue().get(CacheConstants.DEPTH_KEY + symbol);
+		return R.ok(tradePlateDto);
+	}
+
+	/**
+	 * 获取k线数据
+	 *
+	 * @param symbol 符号
+	 * @param level  级别
+	 * @return {@link R}<{@link List}<{@link Object}>>
+	 */
+	@GetMapping("/{symbol}/kline")
+	public R<List<Object>> getKlineData(@PathVariable String symbol, @RequestParam(required = false, defaultValue = "1m") String level){
+
+		List<Object> range = redisTemplate.opsForList().range(
+				CacheConstants.KLINE_KEY + symbol + ":" + level,
+				0,
+				-1
+		);
+		return R.ok(range);
+	}
+
+
+
+
+
 
 }

@@ -34,4 +34,4 @@ security:
       scope: server
 
 match-engine:
-  plate-max-depth: 20
+  plate-max-depth: 5

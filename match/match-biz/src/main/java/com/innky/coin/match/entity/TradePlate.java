@@ -33,8 +33,8 @@ public class TradePlate {
 	public TradePlate(Integer maxDepth, String symbol) {
 		this.maxDepth = maxDepth;
 		this.symbol = symbol;
-		buyItems = new TreeMap<>(Comparator.naturalOrder());
-		sellItems = new TreeMap<>(Comparator.reverseOrder());
+		buyItems = new TreeMap<>(Comparator.reverseOrder());
+		sellItems = new TreeMap<>(Comparator.naturalOrder());
 	}
 
 
@@ -47,18 +47,36 @@ public class TradePlate {
 		}
 	}
 
+	/**
+	 * 向盘口添加一个订单项
+	 *
+	 * @param price     价格
+	 * @param quantity  数量
+	 * @param orderSide 方向
+	 */
 	public void addItem(BigDecimal price, BigDecimal quantity, OrderSideEnum orderSide) {
 		TreeMap<BigDecimal, BigDecimal> items = getItems(orderSide);
-		if(items.size()> maxDepth){
-			return;
+		BigDecimal priceAmount = items.get(price);
+		if (priceAmount ==null ){
+			// 当前价格不存在,新增一项
+			items.put(price, quantity);
+			if ( items.size() > maxDepth){
+				// 超出最大深度值, 移除最后一项
+				items.remove(items.lastKey());
+			}
+		}else {
+			items.replace(price, items.get(price).add(quantity));
 		}
-		items.replace(price, items.get(price).add(quantity));
 	}
 
 
 	public void delItem(BigDecimal price, BigDecimal quantity, OrderSideEnum orderSide){
 		TreeMap<BigDecimal, BigDecimal> items = getItems(orderSide);
-		BigDecimal left = items.get(price).subtract(quantity);
+		BigDecimal priceAmount = items.get(price);
+		if (priceAmount == null){
+			return;
+		}
+		BigDecimal left = priceAmount.subtract(quantity);
 		if (left.equals(BigDecimal.ZERO)){
 			items.remove(price);
 		}
@@ -66,7 +84,7 @@ public class TradePlate {
 			items.replace(price, left);
 		}
 		else {
-			throw new RuntimeException("深度数据异常,小于零");
+			items.replace(price, BigDecimal.ZERO);
 		}
 
 	}

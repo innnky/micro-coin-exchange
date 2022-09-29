@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author innnky
@@ -33,7 +34,7 @@ public interface RemoteMatchService {
 	 * @return {@link R}<{@link TradePlateDto}>
 	 */
 	@GetMapping("/depth/")
-	R<TradePlateDto> getAllDepth(@RequestHeader(SecurityConstants.FROM) String from);
+	R<Map<String, TradePlateDto>>  getAllDepth(@RequestHeader(SecurityConstants.FROM) String from);
 
 
 }

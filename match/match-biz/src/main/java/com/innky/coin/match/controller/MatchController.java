@@ -27,7 +27,7 @@ public class MatchController {
 
 	OrderBooks orderBooks;
 	@GetMapping("/depth/{symbol}")
-//	@Inner
+	@Inner(value = false)
 	R<TradePlateDto> getDepth(@PathVariable("symbol") String symbol){
 		return R.ok(orderBooks.getOrderBook(symbol).getPlate().toDto());
 	}

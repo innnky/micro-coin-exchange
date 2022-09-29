@@ -74,7 +74,8 @@ export default {
       side: "BUY",
       type: "limit",
       price: 0,
-      quantity: 0
+      quantity: 0,
+      tradePlate: {}
     }
   },
   mounted() {

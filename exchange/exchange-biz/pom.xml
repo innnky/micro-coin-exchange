@@ -71,7 +71,17 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-amqp</artifactId>
 		</dependency>
-    </dependencies>
+		<dependency>
+			<groupId>com.innky</groupId>
+			<artifactId>match-api</artifactId>
+			<version>3.5.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.innky</groupId>
+			<artifactId>information-api</artifactId>
+			<version>3.5.2</version>
+		</dependency>
+	</dependencies>
 
     <build>
         <plugins>

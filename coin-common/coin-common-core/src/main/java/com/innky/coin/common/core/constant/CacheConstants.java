@@ -69,4 +69,20 @@ public interface CacheConstants {
 	 */
 	String PORTAL_USER_DETAILS = "portal_user_details";
 
+	/**
+	 * k线缓存前缀
+	 */
+	String KLINE_KEY = "kline:";
+
+
+	/**
+	 * 深度缓存前缀
+	 */
+	String DEPTH_KEY = "depth:";
+
+	/**
+	 * 市场价格前缀
+	 */
+	String MARKET_PRICE_KEY = "market:price:";
+
 }
