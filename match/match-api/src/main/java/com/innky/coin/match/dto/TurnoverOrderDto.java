@@ -34,11 +34,13 @@ public class TurnoverOrderDto {
 	/**
 	 * 买方订单id
 	 */
-	private Long buyOrderId;
+	private OrderDto buyOrder;
 
 	/**
 	 * 卖方订单id
 	 */
-	private Long sellOrderId;
+	private OrderDto sellOrder;
+
+
 
 }

@@ -17,8 +17,10 @@
 
 package com.innky.coin.exchange.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.innky.coin.common.core.constant.enums.OrderStatusEnum;
 import com.innky.coin.common.core.util.R;
 import com.innky.coin.common.log.annotation.SysLog;
 import com.innky.coin.common.security.annotation.Inner;
@@ -134,5 +136,14 @@ public class OrderController {
 		return R.ok(orderService.getOpenOrders());
 	}
 
+	@GetMapping("/my")
+	public R getMyOrder(String symbol) {
+		Long id = SecurityUtils.getUser().getId();
+		return R.ok(orderService.list(new LambdaQueryWrapper<Order>()
+				.eq(Order::getUserId, id)
+				.eq(Order::getOrderStatus, OrderStatusEnum.OPEN.getCode())
+				.eq(Order::getSymbol, symbol))
+		);
+	}
 
 }

@@ -16,6 +16,10 @@
  */
 
 package com.innky.coin.exchange.mapper;
+import java.util.List;
+
+import com.innky.coin.exchange.vo.UserAssetsVO;
+import org.apache.ibatis.annotations.Param;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.innky.coin.exchange.entity.UserAssets;
@@ -29,5 +33,7 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface UserAssetsMapper extends BaseMapper<UserAssets> {
+
+	List<UserAssetsVO> getAllByUserId(@Param("userId") Long userId);
 
 }

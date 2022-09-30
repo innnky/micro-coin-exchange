@@ -26,10 +26,12 @@ import com.innky.coin.exchange.mapper.UserAssetsMapper;
 import com.innky.coin.exchange.service.MarketService;
 import com.innky.coin.exchange.service.UserAssetsHistoryService;
 import com.innky.coin.exchange.service.UserAssetsService;
+import com.innky.coin.exchange.vo.UserAssetsVO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * 用户资产
@@ -98,6 +100,12 @@ public class UserAssetsServiceImpl extends ServiceImpl<UserAssetsMapper, UserAss
 		// history.set
 		// userAssetsHistoryService.save()
 		return result;
+	}
+
+	@Override
+	public List<UserAssetsVO> getUserCoins(Long id) {
+
+		return getBaseMapper().getAllByUserId(id);
 	}
 
 }

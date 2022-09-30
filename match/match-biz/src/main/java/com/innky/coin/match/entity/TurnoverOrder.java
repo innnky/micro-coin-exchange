@@ -67,6 +67,12 @@ public class TurnoverOrder {
 	public TurnoverOrderDto toDto(){
 		TurnoverOrderDto turnoverOrderDto = new TurnoverOrderDto();
 		BeanUtils.copyProperties(this, turnoverOrderDto);
+		com.innky.coin.match.dto.OrderDto buy = new com.innky.coin.match.dto.OrderDto();
+		com.innky.coin.match.dto.OrderDto sell = new com.innky.coin.match.dto.OrderDto();
+		BeanUtils.copyProperties(buyOrder, buy);
+		BeanUtils.copyProperties(sellOrder,sell);
+		turnoverOrderDto.setBuyOrder(buy);
+		turnoverOrderDto.setSellOrder(sell);
 		return turnoverOrderDto;
 	}
 

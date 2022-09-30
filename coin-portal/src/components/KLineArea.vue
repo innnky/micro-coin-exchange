@@ -7,9 +7,11 @@ import "echarts";
 
 
 import VChart, {THEME_KEY} from "vue-echarts";
+import {getRequest} from "@/api/data";
 
 export default {
   name: "KLineArea",
+  props: ["symbol"],
   components: {
     VChart
   },
@@ -18,32 +20,46 @@ export default {
   },
   data() {
     return {
+      xs: [],
+      kls: [],
       sdta: [],
       option: {
         xAxis: {
-          data: ['2017-10-24', '2017-10-25', '2017-10-26', '2017-10-27']
+          data: [1,2,3,4]
         },
         yAxis: {},
         series: [
           {
             type: 'candlestick',
-            data: [
-              [20, 34, 10, 38],
-              [40, 35, 30, 50],
-              [31, 38, 33, 44],
-              [38, 15, 5, 42]
-            ]
+            data: []
           }
         ]
       }
     };
   },
   mounted() {
-    // setInterval(()=>{
-    //   this.sdta.push([38, 15, 5, 42])
-    //   this.option.series[0].data = this.sdta
-    //   console.log( this.option.series[0].data)
-    // },1000*2);
+    setInterval(()=>{
+      // this.sdta.push([38, 15, 5, 42])
+      // this.option.series[0].data = this.sdta
+      // console.log( this.option.series[0].data)
+      this.refreshKline()
+    },1000*2);
+  },
+  methods: {
+    refreshKline(){
+      getRequest(`/exchange/market/${this.symbol}/kline?level=1s`).then(res => {
+        let xs = []
+        let kls = []
+        let data = res.data;
+        for (let i = 0; i < data.length; i++) {
+          xs.push("")
+          kls.push([data[i].open, data[i].close, data[i].high, data[i].low])
+        }
+        // this.xs.push('')
+        this.option.xAxis.data=xs
+        this.option.series[0].data = kls
+      })
+    }
   }
 };
 </script>

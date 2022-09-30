@@ -20,8 +20,10 @@ package com.innky.coin.exchange.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.innky.coin.common.core.constant.enums.OrderSideEnum;
 import com.innky.coin.exchange.entity.UserAssets;
+import com.innky.coin.exchange.vo.UserAssetsVO;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * 用户资产
@@ -41,4 +43,5 @@ public interface UserAssetsService extends IService<UserAssets> {
 
 	boolean userCharge(Long userId, Long coinId, BigDecimal quantity);
 
+	List<UserAssetsVO> getUserCoins(Long id);
 }

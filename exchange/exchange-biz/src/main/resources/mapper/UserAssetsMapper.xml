@@ -33,4 +33,11 @@
     <result property="createBy" column="create_by"/>
     <result property="updateBy" column="update_by"/>
   </resultMap>
+    <select id="getAllByUserId" resultType="com.innky.coin.exchange.vo.UserAssetsVO">
+		select
+			user_assets.amount amount, c.coin_name name
+		from user_assets left join coin c on user_assets.coin_id = c.id
+		where
+			user_id = #{userId,jdbcType=NUMERIC}
+    </select>
 </mapper>

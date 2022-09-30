@@ -16,6 +16,13 @@
     </el-form-item>
     <el-button @click="doCharge">充值</el-button>
   </el-form>
+  我的余额
+  <el-table :data="userAssets">
+    <el-table-column prop="name" label="币种名称">
+    </el-table-column>
+    <el-table-column prop="amount" label="数量"></el-table-column>
+  </el-table>
+
 </div>
 </template>
 
@@ -28,7 +35,8 @@ export default {
     return {
       coinId: '',
       coins: [],
-      quantity: 0
+      quantity: 0,
+      userAssets: []
     }
   },
   methods: {
@@ -42,7 +50,6 @@ export default {
             label: a.coinName
           }
         })
-        console.log(this.coins)
       })
     },
     doCharge(){
@@ -52,10 +59,16 @@ export default {
         quantity: this.quantity
       })
 
+    },
+    getAllCoins(){
+      getRequest("/exchange/userassets/user").then(res=>{
+        this.userAssets = res.data
+      })
     }
   },
   mounted() {
     this.getCoins()
+    this.getAllCoins()
   }
 }
 </script>

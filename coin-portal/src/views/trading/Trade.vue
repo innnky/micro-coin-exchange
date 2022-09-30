@@ -2,11 +2,13 @@
   <div>
     <div class="container">
       <div class="row">
-        <div class="col-8"><k-line-area style="height: 800px; width: 100%"/></div>
+        <div class="col-8">
+          <k-line-area style="height: 800px; width: 100%" :symbol="symbol"/>
+        </div>
         <div class="col-4">
           <el-card class="box-card m-2">
             {{symbol}}
-            <plate @price-changed="priceChanged"/>
+            <plate @price-changed="priceChanged" :symbol="symbol"/>
           </el-card>
           <el-card class="box-card m-2">
             <el-switch
@@ -52,7 +54,88 @@
         </div>
       </div>
     </div>
+    <el-table
+        :data="dataList"
+        border>
+      <el-table-column
+          prop="id"
+          header-align="center"
+          align="center"
+          label="id">
+      </el-table-column>
+      <el-table-column
+          prop="userId"
+          header-align="center"
+          align="center"
+          label="用户id">
+      </el-table-column>
+      <el-table-column
+          prop="symbol"
+          header-align="center"
+          align="center"
+          label="交易对符号">
+      </el-table-column>
+      <el-table-column
+          prop="side"
+          header-align="center"
+          align="center"
+          label="交易方向">
+      </el-table-column>
+      <el-table-column
+          prop="type"
+          header-align="center"
+          align="center"
+          label="交易类型">
+      </el-table-column>
+      <el-table-column
+          prop="price"
+          header-align="center"
+          align="center"
+          label="交易价格">
+      </el-table-column>
+      <el-table-column
+          prop="quantity"
+          header-align="center"
+          align="center"
+          label="交易数量">
+      </el-table-column>
+      <el-table-column
+          prop="orderStatus"
+          header-align="center"
+          align="center"
+          label="委托单状态">
+      </el-table-column>
+      <el-table-column
+          prop="createTime"
+          header-align="center"
+          align="center"
+          label="createTime">
+      </el-table-column>
+      <el-table-column
+          prop="updateTime"
+          header-align="center"
+          align="center"
+          label="updateTime">
+      </el-table-column>
+      <el-table-column
+          prop="createBy"
+          header-align="center"
+          align="center"
+          label="createBy">
+      </el-table-column>
+      <el-table-column
+          prop="updateBy"
+          header-align="center"
+          align="center"
+          label="updateBy">
+      </el-table-column>
+      <el-table-column
+          header-align="center"
+          align="center"
+          label="操作">
 
+      </el-table-column>
+    </el-table>
   </div>
 </template>
 
@@ -75,7 +158,8 @@ export default {
       type: "limit",
       price: 0,
       quantity: 0,
-      tradePlate: {}
+      tradePlate: {},
+      dataList:[]
     }
   },
   mounted() {
@@ -87,6 +171,9 @@ export default {
         this.balance = res.data
       })
     }
+
+    this.createTimers()
+    this.getMyOpenOrders()
   },
   methods: {
     priceChanged(price){
@@ -104,7 +191,18 @@ export default {
         quantity:this.quantity
       }
       postRequest("/exchange/order/new", data)
+    },
+    createTimers(){
+      setInterval(() => {
+        // this.refreshMarketPrice()
+      },1000)
+    },
+    getMyOpenOrders(){
+      getRequest(`/exchange/order/my?symbol=${this.symbol}`).then(res=>{
+        this.dataList = res.data
+      })
     }
+
   }
 }
 </script>

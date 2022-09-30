@@ -17,6 +17,7 @@
 
 package com.innky.coin.exchange.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.innky.coin.common.core.constant.enums.OrderSideEnum;
@@ -136,6 +137,13 @@ public class UserAssetsController {
 		Long userId = SecurityUtils.getUser().getId();
 		boolean data = userAssetsService.userCharge(userId, chargeVO.getCoinId(), chargeVO.getQuantity());
 		return R.ok(data);
+	}
+
+	@GetMapping("/user")
+	public R getAllAssets(){
+		return R.ok(
+				userAssetsService.getUserCoins(SecurityUtils.getUser().getId())
+		);
 	}
 
 }
