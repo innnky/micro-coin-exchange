@@ -16,6 +16,7 @@
  */
 
 package com.innky.coin.exchange.mapper;
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.innky.coin.exchange.vo.UserAssetsVO;
@@ -36,4 +37,7 @@ public interface UserAssetsMapper extends BaseMapper<UserAssets> {
 
 	List<UserAssetsVO> getAllByUserId(@Param("userId") Long userId);
 
+	int updateAmountByCoinIdAndUserId(@Param("amount") BigDecimal amount, @Param("coinId") Long coinId, @Param("userId") Long userId);
+
+	List<UserAssets> getAmountByCoinIdAndUserIdForUpdate(@Param("coinId") Long coinId, @Param("userId") Long userId);
 }

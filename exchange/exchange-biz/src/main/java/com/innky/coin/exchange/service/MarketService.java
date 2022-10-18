@@ -18,6 +18,7 @@
 package com.innky.coin.exchange.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.innky.coin.common.core.constant.enums.OrderSideEnum;
 import com.innky.coin.exchange.entity.Market;
 
 /**
@@ -35,4 +36,5 @@ public interface MarketService extends IService<Market> {
 	 */
 	boolean saveMarket(Market market);
 
+    Long getCoinIdBySymbol(String symbol, OrderSideEnum buy);
 }

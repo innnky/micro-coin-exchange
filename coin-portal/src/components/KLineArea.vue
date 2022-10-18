@@ -1,5 +1,12 @@
 <template>
-  <v-chart className="chart" :option="option"/>
+  <div>
+    <el-radio-group v-model="level">
+      <el-radio-button label="1s"></el-radio-button>
+      <el-radio-button label="30s"></el-radio-button>
+      <el-radio-button label="15m"></el-radio-button>
+    </el-radio-group>
+    <v-chart className="chart" :option="option"/>
+  </div>
 </template>
 
 <script>
@@ -34,7 +41,8 @@ export default {
             data: []
           }
         ]
-      }
+      },
+      level: "1s"
     };
   },
   mounted() {
@@ -47,7 +55,7 @@ export default {
   },
   methods: {
     refreshKline(){
-      getRequest(`/exchange/market/${this.symbol}/kline?level=1s`).then(res => {
+      getRequest(`/exchange/market/${this.symbol}/kline?level=${this.level}`).then(res => {
         let xs = []
         let kls = []
         let data = res.data;

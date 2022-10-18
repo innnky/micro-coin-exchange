@@ -29,6 +29,7 @@ import com.innky.coin.exchange.service.UserAssetsService;
 import com.innky.coin.exchange.vo.UserAssetsVO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -96,7 +97,7 @@ public class UserAssetsServiceImpl extends ServiceImpl<UserAssetsMapper, UserAss
 			result = this.updateById(asset);
 		}
 		// TODO 保存用户资产历史 修正历史表结构
-		UserAssetsHistory history = new UserAssetsHistory();
+//		UserAssetsHistory history = new UserAssetsHistory();
 		// history.set
 		// userAssetsHistoryService.save()
 		return result;
@@ -106,6 +107,25 @@ public class UserAssetsServiceImpl extends ServiceImpl<UserAssetsMapper, UserAss
 	public List<UserAssetsVO> getUserCoins(Long id) {
 
 		return getBaseMapper().getAllByUserId(id);
+	}
+
+	@Override
+	@Transactional(rollbackFor = RuntimeException.class)
+	public void deductAssets(Long userId, BigDecimal orderAmount, Long coinId) {
+		List<UserAssets> userAssets = baseMapper.getAmountByCoinIdAndUserIdForUpdate(coinId, userId);
+		if (userAssets.size()!= 1){
+			throw new RuntimeException("用户币种资产记录数不存在或大于一条");
+		}
+		UserAssets assets = userAssets.get(0);
+		BigDecimal amountLeft = assets.getAmount().subtract(orderAmount);
+		if (amountLeft.compareTo(BigDecimal.ZERO) < 0){
+			throw new RuntimeException("用户余额不足");
+		}
+		if (baseMapper.updateAmountByCoinIdAndUserId(amountLeft, coinId, userId) != 1){
+			throw new RuntimeException("扣减余额失败");
+		}
+		//TODO 用户资产流水记录
+//		userAssetsHistoryService.addHistory()
 	}
 
 }

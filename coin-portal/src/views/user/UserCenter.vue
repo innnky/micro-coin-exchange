@@ -57,6 +57,8 @@ export default {
       postRequest("/exchange/userassets/charge", {
         coinId:this.coinId,
         quantity: this.quantity
+      }).then(()=>{
+        this.getAllCoins()
       })
 
     },

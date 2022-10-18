@@ -16,7 +16,9 @@
  */
 package com.innky.coin.exchange.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.innky.coin.common.core.constant.enums.OrderSideEnum;
 import com.innky.coin.exchange.entity.Coin;
 import com.innky.coin.exchange.entity.Market;
 import com.innky.coin.exchange.exception.InsertException;
@@ -50,6 +52,18 @@ public class MarketServiceImpl extends ServiceImpl<MarketMapper, Market> impleme
 		String symbol = sellCoin.getCoinName() + buyCoin.getCoinName();
 		market.setSymbol(symbol);
 		return save(market);
+	}
+
+	@Override
+	public Long getCoinIdBySymbol(String symbol, OrderSideEnum side) {
+		//TODO 加缓存
+		Market market = this.getOne(new LambdaQueryWrapper<Market>().eq(Market::getSymbol, symbol));
+		if (side == OrderSideEnum.BUY){
+			return market.getBuyCoinId();
+		}
+		else {
+			return market.getSellCoinId();
+		}
 	}
 
 }

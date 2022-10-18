@@ -122,10 +122,9 @@ public class UserAssetsController {
 	 * @return {@link R}
 	 */
 	@GetMapping("/available")
-	public R getAvailableAssetsBySymbol(String symbol) {
+	public R getAvailableAssetsBySymbol(String symbol, String side) {
 		Long userId = SecurityUtils.getUser().getId();
-		//TODO 根据方向获取余额
-		return R.ok(userAssetsService.getAvailableAssetsBySymbol(userId, symbol, OrderSideEnum.BUY).getAmount());
+		return R.ok(userAssetsService.getAvailableAssetsBySymbol(userId, symbol, OrderSideEnum.of(side)).getAmount());
 	}
 
 	/**

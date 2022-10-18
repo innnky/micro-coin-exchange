@@ -40,4 +40,18 @@
 		where
 			user_id = #{userId,jdbcType=NUMERIC}
     </select>
+    <update id="updateAmountByCoinIdAndUserId">
+        update user_assets
+        set amount = #{amount}
+        where coin_id = #{coinId,jdbcType=NUMERIC}
+          AND user_id = #{userId,jdbcType=NUMERIC}
+    </update>
+	<select id="getAmountByCoinIdAndUserIdForUpdate" resultMap="userAssetsMap">
+		select amount
+		from user_assets
+		where coin_id = #{coinId,jdbcType=NUMERIC}
+		  AND user_id = #{userId,jdbcType=NUMERIC}
+		for update
+	</select>
+
 </mapper>

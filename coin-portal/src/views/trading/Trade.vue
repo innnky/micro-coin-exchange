@@ -20,7 +20,8 @@
                 active-text="买入"
                 active-value="BUY"
                 inactive-text="卖出"
-                inactive-value="SELL">
+                inactive-value="SELL"
+                @change="getBalance">
             </el-switch>
             <el-select
                 class="m-2"
@@ -44,7 +45,7 @@
             <el-input
                 class="m-2"
                 v-model="quantity" placeholder="成交数量" style="width: 60%;"></el-input>
-            <div class="mx-2"><span>需花费:{{quantity*price}}</span></div>
+            <div class="mx-2"><span>需花费:{{getNeeds()}}</span></div>
             <div class="mx-2"><span>余额:{{balance}}</span></div>
             <br>
             <el-button
@@ -163,15 +164,8 @@ export default {
     }
   },
   mounted() {
-    this.symbol = this.$route.query.symbol;
-    if(this.symbol.length > 0) {
-      getRequest("/exchange/userassets/available", {
-        symbol: this.symbol
-      }).then(res => {
-        this.balance = res.data
-      })
-    }
 
+    this.getBalance()
     this.createTimers()
     this.getMyOpenOrders()
   },
@@ -190,7 +184,10 @@ export default {
         price:this.price,
         quantity:this.quantity
       }
-      postRequest("/exchange/order/new", data)
+      postRequest("/exchange/order/new", data).then(res=>{
+        res
+        this.getBalance()
+      })
     },
     createTimers(){
       setInterval(() => {
@@ -201,6 +198,25 @@ export default {
       getRequest(`/exchange/order/my?symbol=${this.symbol}`).then(res=>{
         this.dataList = res.data
       })
+    },
+    getBalance(){
+      this.symbol = this.$route.query.symbol;
+      if(this.symbol.length > 0) {
+        getRequest("/exchange/userassets/available", {
+          symbol: this.symbol,
+          side: this.side
+        }).then(res => {
+          this.balance = res.data
+        })
+      }
+    },
+    getNeeds(){
+      if (this.side ==="BUY"){
+        return this.quantity*this.price
+      }
+      else {
+        return this.quantity
+      }
     }
 
   }

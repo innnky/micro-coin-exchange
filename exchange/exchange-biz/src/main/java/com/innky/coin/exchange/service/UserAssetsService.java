@@ -44,4 +44,13 @@ public interface UserAssetsService extends IService<UserAssets> {
 	boolean userCharge(Long userId, Long coinId, BigDecimal quantity);
 
 	List<UserAssetsVO> getUserCoins(Long id);
+
+	/**
+	 * 扣除用户资产
+	 *
+	 * @param userId      用户id
+	 * @param orderAmount 数量
+	 * @param coinId      币种id
+	 */
+	void deductAssets(Long userId, BigDecimal orderAmount, Long coinId);
 }

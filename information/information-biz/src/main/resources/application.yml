@@ -32,4 +32,4 @@ security:
       scope: server
 
 information:
-  kline-max-len: 100
+  kline-max-len: 50

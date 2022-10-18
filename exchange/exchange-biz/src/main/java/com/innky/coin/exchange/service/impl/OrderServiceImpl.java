@@ -33,6 +33,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -53,6 +54,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 	private RabbitTemplate rabbitTemplate;
 
 	@Override
+	@Transactional(rollbackFor = RuntimeException.class)
 	public boolean createOrder(Long userId, OrderVO order) {
 		Order newOrder = new Order();
 		if (OrderTypeEnum.MARKET.getValue().equals(order.getType())) {
@@ -61,14 +63,22 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 		}
 		else if (OrderTypeEnum.LIMIT.getValue().equals(order.getType())) {
 			UserAssets assets = userAssetsService.getAvailableAssetsBySymbol(userId, order.getSymbol(), OrderSideEnum.of(order.getSide()));
-			if (assets.getAmount().compareTo(order.getQuantity().multiply(order.getPrice())) < 0) {
+
+			BigDecimal orderAmount;
+			if(OrderSideEnum.of(order.getSide()) == OrderSideEnum.BUY){
+				orderAmount = order.getQuantity().multiply(order.getPrice());
+			}
+			else {
+				orderAmount = order.getQuantity();
+			}
+			if (assets.getAmount().compareTo(orderAmount) < 0) {
 				throw new RuntimeException("余额不足");
 			}
 
 			newOrder.setType(OrderTypeEnum.LIMIT.getCode());
 			newOrder.setPrice(order.getPrice());
-			// TODO 扣减余额
-			// userAssetsService.deductAssets(userId, )
+			//	TODO 扣减余额
+			 userAssetsService.deductAssets(userId, orderAmount, assets.getCoinId());
 
 		}
 

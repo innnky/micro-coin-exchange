@@ -84,7 +84,7 @@ public class TradePlate {
 			items.replace(price, left);
 		}
 		else {
-			items.replace(price, BigDecimal.ZERO);
+			items.remove(price);
 		}
 
 	}
